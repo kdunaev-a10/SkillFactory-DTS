@@ -1,3 +1,9 @@
+from pprint import pprint
+
 print ("TEST")
-print ("Git Hub project")
-print("added from GitHub corrected")
+print ("Git"+"Hub project")
+print("added","from GitHub corrected")
+pprint("test")
+
+name = input("Please enter your first name: ")
+print("Hello,", name)
