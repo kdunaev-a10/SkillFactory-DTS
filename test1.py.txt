@@ -5,5 +5,19 @@ print ("Git"+"Hub project")
 print("added","from GitHub corrected")
 pprint("test")
 
-name = input("Please enter your first name: ")
-print("Hello,", name)
+first_name = input("Enter your firstname:")
+last_name = input("Enter your lastname:")
+age = input("Enter your age:")
+city = input("Enter your city of residence:")
+# Выводим пустую строку
+print("")
+# Выводим приветствие, подставляя имя и фамилию пользователя,
+# которые он ввёл с клавиатуры
+print("Hello,", first_name, last_name, "!")
+# Выводим пустую строку
+print("")
+# Выводим фиксированный текст для удобства просмотра
+print("Your profile:")
+# Выводим возраст и город, которые указал пользователь
+print("Age:", age, "Years")
+print("City:", city)
