@@ -76,4 +76,5 @@ cur_date = "10.10.2000"
 currency = 'EUR'
 rate = 86.93
 
-print('the currency {} on date {} had value {}'.format(currency,cur_date,rate) )
+print('the currency {2} on date {1} had value {2:.3f}'.format(currency,cur_date,rate) )
+print(f'the currency {currency} on date {cur_date} had value {rate:.3f}'.format(currency,cur_date,rate) )
