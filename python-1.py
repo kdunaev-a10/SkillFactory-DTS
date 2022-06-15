@@ -44,3 +44,36 @@ print(3 < 10)
 
 print(1.57*3/1.5 == 3.14)
 print(3**3 - 3* (6*3 - 4.5*2))
+
+s1 = "Per"
+s2 = "fec"
+s3 = "fe"
+s4 = "ct"
+new_string = "Perfect"
+print(new_string.find('P'))
+print(new_string[::-1])
+
+colors = 'red blue green'
+print(colors.split())
+
+animal = 'bear,1,0,0,1,0,0,1,1,1,1,0,0,4,0,0,1,1'
+print(animal.split(','))
+
+colors = 'red green blue'
+colors_split = colors.split() # список цветов по отдельности
+colors_joined = " . ".join(colors_split) # объединение строк
+print('Color joined')
+print(colors_joined)
+
+#str = input("enter numbers separated with space")
+str = "1 2 3 4"
+str_split = str.split()
+print(str_split)
+str_join = "\n".join(str_split)
+print(str_join)
+
+cur_date = "10.10.2000"
+currency = 'EUR'
+rate = 86.93
+
+print('the currency {} on date {} had value {}'.format(currency,cur_date,rate) )
