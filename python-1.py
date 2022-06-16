@@ -82,3 +82,11 @@ print(f'the currency {currency} on date {cur_date} had value {rate:.3f}' )
 name = 'John'
 dayofweek = 'Friday'
 print('Hello, {}! Today is {}. Have a nice day!'.format(name,dayofweek) )
+
+a = 5.4321
+print(a+10)
+
+empty_list = list()
+print(empty_list)
+another_empty_list = []
+print(another_empty_list)
