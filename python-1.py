@@ -78,3 +78,7 @@ rate = 86.93
 
 print('the currency {2} on date {1} had value {2:.3f}'.format(currency,cur_date,rate) )
 print(f'the currency {currency} on date {cur_date} had value {rate:.3f}' )
+
+name = 'John'
+dayofweek = 'Friday'
+print('Hello, {}! Today is {}. Have a nice day!'.format(name,dayofweek) )
