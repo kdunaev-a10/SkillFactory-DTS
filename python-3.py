@@ -56,3 +56,4 @@ val = list_2.pop()
 print(list_1 == list_2)
 
 #2.4
+
