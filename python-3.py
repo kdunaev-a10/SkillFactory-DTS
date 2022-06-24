@@ -55,5 +55,34 @@ val = list_2.pop()
 
 print(list_1 == list_2)
 
-#2.4
+#3.1
+a = 7
+b = 9+a
+print("a=F(",b,")")
 
+#3.2
+s = 5
+a = 10
+if a > 0:
+    s = s + a
+else:
+    s = s - a
+print(s)
+
+
+print(bool(0))  # False
+print(bool(1))  # True
+print(bool("")) # False
+print(bool("1"))  # True
+print(bool([])) # False
+print(bool([1]))  # True
+
+zero = 50%3
+if zero :
+    print("divide by", zero)
+else:
+    print("cant divide by", zero)
+
+pass1 = ""
+if not pass1:
+    print("forgot to enter pass")

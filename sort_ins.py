@@ -10,7 +10,7 @@ for i in range(1,N):
     j = 0
     while tmp > num_list[j]:
         print("j", tmp,j)
-        j = j + 1
+        j += 1
     print("ij", i, j)
     for k in range(i-1,j-1,-1):
         print("k", tmp, k)
