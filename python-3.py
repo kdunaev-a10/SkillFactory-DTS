@@ -200,7 +200,9 @@ user_database = {
 }
 
 def check_user(username, password):
-    if username in user_database.keys():
+    #if username in user_database.keys():
+    if username in user_database:
+        print("name is found")
         if user_database[username] == password:
             return True
         else:
@@ -208,7 +210,7 @@ def check_user(username, password):
     else:
         return False
 
-print(check_user("test", "test"))
+print(check_user("password", "test"))
 print(check_user("hesoyam", "test"))
 print(check_user("hesoyam", "tgm"))
 
