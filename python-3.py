@@ -45,7 +45,7 @@ print(a == None) #BAD USE OF None!
 
 N = 27395
 strN = str(N)
-print(int(strN[0])%2 is 0)
+print(int(strN[0])%2 == 0)
 
 #2.3
 list_1 = [1, 2]
@@ -86,3 +86,65 @@ else:
 pass1 = ""
 if not pass1:
     print("forgot to enter pass")
+
+#4-0
+try:
+    print("before exception")
+#    a = int(input("enter a "))
+#    b = int(input("enter b "))
+    a = 10
+    b = 0
+    c = a / b
+#    print("c ", c)
+except ZeroDivisionError as e:
+    print("Error ", e)
+else:
+    print("Fine, c ", c)
+finally:
+    print("Finished!")
+
+print("After exception ")
+
+##Raise
+try:
+#    age = int(input("you age: "))
+    age = -1
+    if age > 100 or age <= 0:
+        raise ValueError("you're too old or don'T exist")
+except ValueError as age_error:
+    print("age is wrong!")
+    print("error ", age_error)
+else:
+    print("you are {} years old!".format(age))
+
+
+#Check
+#input1 = input("Enter number ")
+input1 = 111
+try:
+    int1 = int(input1)
+except ValueError as type_error:
+    print("cauldn'T convert into number")
+    print("Error: ", type_error)
+else:
+    print("You entered a right number ", int1, type(int1))
+finally:
+    print("Exit ")
+
+
+#5.0
+input1 = input("Enter number")
+try:
+    int1 = int(input1)
+except ValueError as type_error:
+    print("cauldn'T convert into number")
+    print("Error: ", type_error)
+else:
+    print("You entered a right number ", int1, type(int1))
+    if int1 % 2 == 0 or int1 % 3 == 0:
+        print("number {} is divided by 2 or 3".format(int1))
+    else:
+        print("number {} is NOT divided by 2 or 3".format(int1))
+finally:
+    print("Exit ")
+
