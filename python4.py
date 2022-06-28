@@ -111,6 +111,24 @@ print(places)  # выводим результирующий список
 #1.6
 print("###1.6")
 my_list = []
-for number in range(0,9):
+for number in range(0,10):
     my_list.append(number**2)
 print(my_list)
+
+#1.8
+print("###1.8")
+my_list=[1]
+for i in range(10):
+    my_list.append(my_list[i] * 2)
+print(my_list, len(my_list))
+
+
+#1.9
+print("###1.9")
+word_list = "My name is Kons".split()
+print(word_list)
+str1 = ""
+for s in word_list:
+    str1 += s + " "
+print(str1)
+
