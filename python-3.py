@@ -293,3 +293,11 @@ else:
 A = -1
 res = 45 if A > 0 else 50
 print(res)
+
+user_database = {
+    'user': 'password',
+    'iseedeadpeople': 'greedisgood',
+    'hesoyam': 'tgm'
+}
+
+print("user" in user_database)
