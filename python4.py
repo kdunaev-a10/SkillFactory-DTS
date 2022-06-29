@@ -226,17 +226,28 @@ secret_passwords = {
     'MouseLulu': 'myshkanaruhka'
 } #база позывных и паролей
 #создаём бесконечный цикл
-while True:
-    name = input("enter name:")
-    if name in secret_passwords:
-        password = input("enter password:")
-        if password == secret_passwords[name]:
-            print("Weclome, ", name)
-            break
-        else:
-            print("wrong password")
-    else:
-        print("wrong name")
+#while True:
+#    name = input("enter name:")
+#    if name in secret_passwords:
+#        password = input("enter password:")
+#        if password == secret_passwords[name]:
+#            print("Weclome, ", name)
+#            break
+#        else:
+#            print("wrong password")
+#    else:
+#        print("wrong name")
 
 #2.4
 print("###2.4")
+
+max_sq = 1000
+n = 1
+while True:
+    if n**2 >  max_sq:
+        print("Max number with SQ > 1000 is ", n - 1)
+        break
+    n += 1
+    print(n, n**2)
+
+
