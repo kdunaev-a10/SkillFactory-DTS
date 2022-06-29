@@ -132,3 +132,111 @@ for s in word_list:
     str1 += s + " "
 print(str1)
 
+#1.10
+print("###1.10")
+num_list = [1, 10, 3, -5]
+num_list.sort()
+for item in num_list:
+    print(item)
+
+#1.11
+print("###1.11")
+my_list = list(range(0, 100, 3))
+count_odd = 0
+for item in my_list:
+    if item % 2 == 0:
+        count_odd += 1
+print("Number of odd", count_odd)
+
+#1.12
+print("###1.12")
+my_list = [True, 1, -10, 'hello', False, 'string_1', 123, 2.5, [1, 2], 'another']
+count = 0
+for item in my_list:
+    if type(item) is str:
+        count += 1
+print(count)
+
+
+#2
+lst=['a', 'b', 'c', 'd', 'e']
+while len(lst) > 2:
+    #Начало блока кода с телом цикла
+    lst.pop(0) # Обновляем список, удаляя первый элемент в нём
+    print(lst) # Выводим промежуточный результат
+    #Конец блока кода с телом цикла
+#Выводим на экран результирующий список
+print('Result', lst)
+
+print("----")
+
+weight = 67 #заданный вес входящего в лифт человека
+max_weight = 400 #задаём грузоподъёмность
+S = 0 #задаём суммарный вес людей в лифте
+#создаём цикл, который будет работать, пока S не превысит max_weight
+while S < max_weight: #делай, пока...
+    S += weight #увеличиваем суммарный вес, равносильно S = S + weight
+    print('Current sum weight', S) #выводим значение суммарного веса после обновления
+print() #отделяем промежуточный вывод от результата пустой строкой
+print('Overweight {} kg'.format(S-max_weight)) #выводим итоговое значение перевеса
+
+#2.2
+print("###2.2")
+max_vol = float(10)
+val1 = 3.3
+S = 0
+while S < max_vol:
+    S += val1
+    print(S)
+print("overflow is {:.2} l".format(S - max_vol))
+
+print("----")
+S = 0  # создаём накопительную переменную, в которой будем считать сумму
+n = 1  # задаём текущее натуральное число
+
+# создаём цикл, который будет работать, пока сумма не превысит 500
+while S < 50:  # делай, пока ...
+    S += n  # увеличиваем сумму, равносильно S = S + n
+    n += 1  # увеличиваем значение натурального числа
+    print("Still counting ...")  # выводим строку ожидания
+print()  # отделяем промежуточный вывод от результата пустой строкой
+print("Sum is: ", S)  # выводим результирующую сумму
+print("Numbers total: ", n - 1)  # выводим результирующее количество чисел
+
+#2.3
+print("###2.3")
+max_sq = 1000
+n = 1
+while n**2 <  max_sq:
+    n += 1
+    print(n, n**2)
+print("Max number with SQ > 1000 is ", n-1)
+
+print("---")
+n = 1
+while True:
+    if n > 10:
+        break
+    print(n)
+    n += 1
+
+secret_passwords = {
+    'Enot': 'ulybaka',
+    'Agent12': '1password1',
+    'MouseLulu': 'myshkanaruhka'
+} #база позывных и паролей
+#создаём бесконечный цикл
+while True:
+    name = input("enter name:")
+    if name in secret_passwords:
+        password = input("enter password:")
+        if password == secret_passwords[name]:
+            print("Weclome, ", name)
+            break
+        else:
+            print("wrong password")
+    else:
+        print("wrong name")
+
+#2.4
+print("###2.4")
