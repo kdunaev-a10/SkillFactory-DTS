@@ -248,6 +248,60 @@ while True:
         print("Max number with SQ > 1000 is ", n - 1)
         break
     n += 1
-    print(n, n**2)
+
+#2.8
+print("###2.8")
+n = 10
+i = 1
+while i ** 2 < n:
+    i += 1
+print(i)
+
+#2.9
+print("###2.9")
+n = 10
+i = 0
+while i < n:
+    print('Hello')
+    i += 1
+
+#2.10
+print("###2.10")
+max_pr = 1000
+n = 1
+pr = 1
+while pr < max_pr:
+    pr *= n
+    n += 1
+    print(pr, n)
+print(pr, n - 1)
 
 
+#2.11
+print("###2.11")
+max_pr = 1000
+n = 0
+pr = 3
+while pr**n < max_pr:
+    n += 1
+print(pr**n, n - 1)
+
+#2.12
+print("###2.12")
+max_pr = 3000
+n = 1.08
+y = 0
+pr = 1000
+while pr < max_pr:
+    pr *= n
+    y += 1
+    print(pr, y)
+print(pr, y)
+
+#2.13
+print("###2.13")
+max_people = 5
+i = 0
+while i < max_people:
+    print('There are', i, 'people in the room') # В помещении i человек
+    i += 1
