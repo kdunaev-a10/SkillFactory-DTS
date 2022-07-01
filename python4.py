@@ -453,6 +453,164 @@ test_matrix2 = [
     [123, 5, 1]
 ]
 
-row_count = len(test_matrix1)
+row_count = len(test_matrix2)
 elm_count = 0
+for row in test_matrix2:
+    if len(row) == row_count:
+        elm_count += 1
+print(elm_count == row_count)
+print("elm_count", elm_count)
 
+a = "ddddd \
+sasas"
+print(a)
+
+#4
+user_dynamics = [-5, 2, 4, 8, 12, -7, 5]
+for index, value in enumerate(user_dynamics):
+    print("day {} : {}".format(index+1, value))
+
+#4.1
+print("##4.1")
+simple_string = 'Simple String'
+for i, s in enumerate(simple_string):
+    print(i,s)
+#4.1
+print("##4.1")
+user_dynamics = [-5, 2, 4, 8, 12, -7, 5]
+number_negative = []
+list_negative = []
+for index, value in enumerate(user_dynamics):
+    if value < 0:
+        number_negative.append(value)
+        list_negative.append(index+1)
+
+print("client left {},  negative days {}".format(number_negative, list_negative))
+
+#4.2
+to_inventory = ['Blood Moon Sword', 'Sunset-colored sword', 'Bow of Stars', 'Gain Stone']
+inventory = [] #задаём пустой инвентарь
+#создаём цикл по элементам списка to_inventory
+for item in to_inventory: #item — текущий элемент списка
+    #проверяем условие, что инвентарь уже заполнен
+    if len(inventory) == 3: #если условие выполняется,
+        print('inventory is full!') #выводим предупреждение об ошибке
+        break #завершаем работу цикла
+    else:#в противном случае
+        inventory.append(item) #добавляем предмет в инвентарь
+print(inventory)#выводим результирующий инвентарь
+
+N = 81
+B = 3
+count = 0
+P = N
+while True:
+    if P % B == 0:
+        count += 1
+        P //= B
+        if P == 1:
+            print("{} is {} times power of {}".format(N,count,B))
+            break
+    else:
+        print("{} is not a power of {}".format(N, B))
+        break
+
+#4.6
+print("##4.6")
+n = 19 #задаём число
+#создаём бесконечный цикл
+while True:
+    if n == 1: #если результат равен 1,
+        print('Syracuse hypothesis holds') #выводим утвердительное сообщение
+        break
+    if n % 2 == 0:
+        n = n // 2
+    else:
+        n = (n * 3 + 1) // 2
+    print(n)
+
+#4.7
+client_status = {
+    103303: 'yes',
+    103044: 'no',
+    100423: 'yes',
+    103032: 'no',
+    103902: 'no'
+}
+
+for user_id in client_status:
+    if client_status[user_id] == "no":
+        continue
+    else:
+        print("certificate: ", user_id, client_status[user_id])
+
+
+#4.9
+print("##4.9")
+my_dict = {'a': 15, 'b': 10.5, 'c': '15', 'd': 50, 'e': 15, 'f': '15'}
+num_count = 0
+for key in my_dict:
+    if type(my_dict[key]) is str:
+        continue
+    else:
+        num_count += 1
+print(num_count)
+
+#4.10
+print("##4.10")
+text = """
+The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice 
+had not a moment to think about stopping herself before she found herself falling down a very deep well.
+
+Either the well was very deep, or she fell very slowly, for she had plenty of time as she went down to look about her 
+and to wonder what was going to happen next. First, she tried to look down and make out what she was coming to, 
+but it was too dark to see anything; then she looked at the sides of the well, and noticed that they were filled with 
+cupboards and book-shelves; here and there she saw maps and pictures hung upon pegs. She took down a jar from one of 
+the shelves as she passed; it was labelled `ORANGE MARMALADE', but to her great disappointment it was empty: she did 
+not like to drop the jar for fear of killing somebody, so managed to put it into one of the cupboards as she fell past 
+it.
+
+`Well!' thought Alice to herself, `after such a fall as this, I shall think nothing of tumbling down stairs! How brave 
+they'll all think me at home! Why, I wouldn't say anything about it, even if I fell off the top of the house!' (Which 
+was very likely true.)
+"""
+
+my_dict = {}
+text = text.replace("\n","")
+text = text.replace(" ","")
+text = text.lower()
+print(text)
+
+for sym in text:
+    if sym not in my_dict:
+        my_dict[sym] = 1
+    else:
+        my_dict[sym] += 1
+print(my_dict)
+
+#4.11
+print("##4.11")
+
+text = """
+She sells sea shells on the sea shore;
+The shells that she sells are sea shells I am sure.
+So if she sells sea shells on the sea shore,
+I am sure that the shells are sea shore shells.
+"""
+
+my_dict = {}
+text = text.lower() #приводим текст к нижнему регистру
+text = text.replace("\n", " ") #заменяем символы переноса строки на пробелы
+text = text.replace(",", "") #заменяем запятые на пустые строки
+text = text.replace(".", "") #заменяем точки на пустые строки
+text = text.replace(";", "") #заменяем точки с запятыми на пустые строки
+print(text)
+
+word_list = text.split()
+print(word_list)
+for word in word_list:
+    if word not in my_dict:
+        my_dict[word] = 1
+    else:
+        my_dict[word] += 1
+print(my_dict)
