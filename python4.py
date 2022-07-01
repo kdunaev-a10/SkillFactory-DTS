@@ -614,3 +614,30 @@ for word in word_list:
     else:
         my_dict[word] += 1
 print(my_dict)
+
+#5.1
+print("##5.1")
+import random
+my_list = []
+for i in range(0, 10):
+    my_list.append(random.randint(0, 10))
+print(my_list)
+for item in my_list:
+    if my_list.count(item) > 1:
+        print("Numer {} accounts {} times".format(item, my_list.count(item)))
+        print("Stop here")
+        break
+#5.1
+print("##5.1")
+import random
+my_list = []
+for i in range(0, 10):
+    my_list.append(random.randint(0, 10))
+print(my_list)
+
+summa = 0
+count = 0
+while summa <= 10:
+    summa += my_list[count]
+    count += 1
+print("Summa ", summa)
