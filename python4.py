@@ -305,3 +305,154 @@ i = 0
 while i < max_people:
     print('There are', i, 'people in the room') # В помещении i человек
     i += 1
+
+
+####3
+temperature = [
+    [13, 15, 10],
+    [14, 13, 9],
+    [8, 9, 6]
+]
+print(temperature[0][2])
+print(temperature[1][1])
+print(temperature[2][0])
+
+
+matrix = [
+    [1, 2],
+    [3, 4, 5],
+    [5, 6]
+]
+
+for row in matrix:
+    print(row)
+    for elm in row:
+        print(elm)
+    print()
+
+N = len(matrix)
+for i in range(N):
+    print(i, matrix[i])
+    M = len(matrix[i])
+    for j in range(M):
+        print(i,j,matrix[i][j])
+    print()
+
+#3.2
+print("###3.2")
+hours = list(range(9, 24, 2)) #создаём список часов
+minutes = list(range(0, 60, 15)) #создаём список минут
+for h in hours:
+    for m in minutes:
+        print("Alarm set {} {}".format(h,m) )
+
+str_list = ['text', 'morning', 'notepad', 'television', 'ornament'] #заданный список строк
+count = 0 #задаём начальное количество символов 'e'
+#создаём цикл по элементам списка str_list
+for text in str_list:
+    #увеличиваем количество символов 'e'
+    count += text.count('e') #.count() считает, сколько раз символ встречается в строке text
+print("Count symbol 'e':", count) #выводим результат
+
+#3.3
+print("###3.3")
+text_list = [
+    'afbaad',
+    'faaf',
+    'afaga',
+    'agag'
+]
+count = 0
+for text in text_list:
+    count += text.count("a")
+print("a - ", count)
+
+count = 0
+for text in text_list:
+    for sym in text:
+        if sym == "a":
+            count += 1
+print("a - ", count)
+
+#3.4
+print("###3.4")
+
+random_matrix = [
+    [9, 2, 1],
+    [2, 5, 3],
+    [4, 8, 5]
+]
+max_val_row = []
+for row in random_matrix:
+    max_val = row[0]
+    for elm in row:
+        if elm > max_val:
+            max_val = elm
+    max_val_row.append(max_val)
+print(max_val_row)
+
+#3.5
+print("###3.5")
+student_scores = [
+    [56, 90, 80],
+    [80, 86, 92],
+    [91, 76, 89],
+    [91, 42, 60],
+    [65, 30, 90]
+]
+
+summa = 0
+math_sum = 0
+info_sum = 0
+rus_sum = 0
+N = len(student_scores) # number of students
+for i in range(N):
+    M = len(student_scores[i])
+    math_sum += student_scores[i][0]
+    info_sum += student_scores[i][1]
+    rus_sum += student_scores[i][2]
+    for j in range(M):
+        summa += student_scores[i][j]
+print('Average math score', math_sum/N) #выводим средний балл по математике
+print('Average info score', info_sum/N) #выводим средний балл по информатике
+print('Average rus score', rus_sum/N) #выводим средний балл по русскому языку
+print('Average score', N,M,summa/(N*M)) #выводим общий средний балл
+
+
+#3.6
+print("###3.6")
+count = 0
+for i in range(5):
+    for j in range(4):
+        count += 1
+print(count)
+
+#3.7
+print("###3.7")
+scores = [
+    [0.5, 0.6, 0.6, 0.65, 0.3],
+    [0.55, 0.7, 0.9, 0.5, 0.5]
+]
+scores_lst = []
+for row in scores:
+    for score in row:
+        scores_lst.append(score)
+print(scores_lst)
+
+#3.8
+print("###3.8")
+test_matrix1 = [
+    [1, 2, 3],
+    [7, -1, 2],
+    [123, 2, -1]
+]
+test_matrix2 = [
+    [1, 2, 3],
+    [7, -1, 2],
+    [123, 2, -1],
+    [123, 5, 1]
+]
+
+row_count = len(test_matrix1)
+elm_count = 0
+
