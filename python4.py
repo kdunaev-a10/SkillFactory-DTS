@@ -627,8 +627,8 @@ for item in my_list:
         print("Numer {} accounts {} times".format(item, my_list.count(item)))
         print("Stop here")
         break
-#5.1
-print("##5.1")
+#5.2
+print("##5.2")
 import random
 my_list = []
 for i in range(0, 10):
@@ -641,3 +641,75 @@ while summa <= 10:
     summa += my_list[count]
     count += 1
 print("Summa ", summa)
+
+#5.3
+print("##5.3")
+health = 500
+attack = 80
+sec = 0
+while health > 0:
+    health -= attack
+    sec += 1
+print("attcks: ", sec)
+
+
+#5.4
+print("##5.4")
+str_list = ['Hello', 'my', 'name', 'is', 'Ezeikel', 'I', 'like', 'knitting']
+cut_str_list = []
+for count,item in enumerate(str_list):
+    cut_str_list.append([count,item[:3]])
+print(cut_str_list)
+
+#5.5
+print("##5.5")
+sentence = 'A roboT MAY Not injure a humAn BEING or, tHROugh INACtion, allow a human BEING to come to harm'
+word_dict={}
+sentence = sentence.lower() #приводим текст к нижнему регистру
+sentence = sentence.replace("\n", " ") #заменяем символы переноса строки на пробелы
+sentence = sentence.replace(",", "") #заменяем запятые на пустые строки
+sentence = sentence.replace(".", "") #заменяем точки на пустые строки
+sentence = sentence.replace(";", "") #заменяем точки с запятыми на пустые строки
+print(sentence)
+word_list = sentence.split()
+
+for word in word_list:
+    if word not in word_dict:
+        word_dict[word] = 1
+    else:
+        word_dict[word] += 1
+print(word_dict)
+
+#5.6
+print("##5.6")
+str_list = ['text', 'morning', 'notepad', 'television', 'ornament']
+words_dic = {}
+sym_to_check = "i"
+
+for item in str_list:
+    words_dic[item] = 0
+    for sym in item:
+        if sym == sym_to_check:
+            words_dic[item] += 1
+print(words_dic)
+
+for item in str_list:
+    words_dic[item] = item.count(sym_to_check)
+
+print(words_dic)
+
+str = "1 2 3 4"
+str_split = str.split()
+print(str_split)
+str_join = "\n".join(str_split)
+print(str_join)
+
+print("enter text \n")
+text = ''
+while True:
+    x = input()
+    if x == '':
+        break
+    else:
+        text += x + "\n"
+print(text)
