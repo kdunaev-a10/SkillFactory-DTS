@@ -93,6 +93,9 @@ def get_cola(ice=True):
 get_cola()
 
 print(16 ** (1/4))
+
+#3.2
+print("##3.2")
 def root(value, n=2):
     # Как мы уже выяснили, чтобы посчитать
     # корень степени n из числа, можно возвести это число
@@ -108,7 +111,8 @@ print(root(25))
 #    return result
 #print(wrong_root(25))
 
-
+#3.5
+print("##3.5")
 def add_mark(name, mark, journal={}):
     # Присваиваем имени в журнале переданную оценку
     journal[name] = mark
@@ -276,6 +280,15 @@ print(list1,list2,list3)
 print(*list1, **how)
 print(*list2, **how)
 print(*list3, **how)
+
+print()
+#5.6
+print("##5.6")
+def print_lists(*lists, **how):
+    for l in lists:
+        print(*l, **how)
+print_lists(list1, list2, list3, **how)
+
 print()
 
 print([12, 23, 45],[34, 56, 78], sep='. ', end=';')
@@ -367,9 +380,9 @@ print("##6.4")
 def sort_sides(hyp):
     print(hyp)
     hyp.sort(key=lambda arg: (arg[0]**2 + arg[1]**2)**(1/2))
-    for elm in hyp:
-        l = lambda arg: (arg[0]**2 + arg[1]**2)**(1/2)
-        print(l(elm))
+    #for elm in hyp:
+    #    l = lambda arg: (arg[0]**2 + arg[1]**2)**(1/2)
+    #    print(l(elm))
     #hyp.sort(key=lambda arg: arg[1])
     return(hyp)
 
@@ -397,7 +410,9 @@ print(get_less(l, 0))
 #7.10
 print("##7.10")
 def split_date(str_date):
-    return int(str_date[0:2]),int(str_date[2:4]),int(str_date[4:8])
+    return int(str_date[:2]),int(str_date[2:4]),int(str_date[4:])
+    #return int(str_date[0:2]),int(str_date[2:4]),int(str_date[4:8])
+
 print(split_date("31012019"))
 
 #7.11
@@ -408,7 +423,6 @@ def is_prime(num):
     if num == 1:
         return False
     for i in range(2, sq_root+1):
-        print(i)
         if num % i == 0:
             return False
     return True
@@ -419,11 +433,16 @@ print(is_prime(29))
 
 #7.12
 print("##7.12")
+#def between_min_max(*nums):
+#    lst = list(nums)
+#    lst.sort()
+#    print(lst)
+#    return (lst[0] + lst[len(lst) - 1]) / 2
+
 def between_min_max(*nums):
-    lst = list(nums)
-    lst.sort()
-    print(lst)
-    return (lst[0] + lst[len(lst) - 1]) / 2
+    mn = min(nums)
+    mx = max(nums)
+    return (mn + mx) / 2
 
 print(between_min_max(1,2,3,4,5,6,3,65,7))
 
@@ -466,3 +485,46 @@ print(between_min_max(1,2,3,9,5))
 def func_between_min_max(*nums):
     return (sorted(nums)[0] + sorted(nums)[len(nums)-1]) / 2
 print(func_between_min_max(1,2,3,4,5,6,3,65,7))
+
+
+#7.17
+print("##7.17")
+def sort_ignore_case(ls):
+    ls.sort(key=lambda s : s.lower())
+    return ls
+
+print(sort_ignore_case(['Acc', 'abc']))
+
+#7.18
+print("##7.18")
+def exchange(usd=None, rub=None, rate=None):
+    lst=[usd,rub,rate]
+    args=len(lst) - lst.count(None)
+#    for i in lst:
+#        if i is not None:
+#            args.append(i)
+
+    print(args)
+#def exchange(**args):
+    if args < 2:
+        raise ValueError('Not enough arguments')
+    if args >= 3:
+        raise ValueError('Too many arguments')
+    if rate == None:
+        return rub / usd
+    if rub == None:
+        return rate * usd
+    if usd == None:
+        return rub / rate
+    return None
+
+print(exchange(usd=100, rub=8500))
+print(exchange(usd=100, rate=85))
+print(exchange(rub=1000, rate=85))
+# 85.0
+# 8500
+# 11.764705882352942
+print(exchange(rub=1000, rate=85, usd=90))
+# ValueError: Too many arguments
+print(exchange(rub=1000))
+# ValueError: Not enough arguments
