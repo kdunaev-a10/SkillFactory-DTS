@@ -459,6 +459,18 @@ print(best_student(Tom=12, Mike=100))
 print(best_student(Tom=12))
 print(best_student(Tom=12, Jerry=1, Jane=2))
 
+#7.13
+print("##7.13")
+def best_student(**kwargs):
+    #for k,v in kwargs.items():
+    #    print(k,v)
+    #print(kwargs)
+    mn = min(kwargs.items(), key = lambda x: x[1])
+    #new_list = sorted(kwargs.items(), key = lambda x: x[1])
+    return mn[0]
+
+
+
 #dict = {6: 'George', 2: 'John', 1: 'Potter', 9: 'Micheal', 7: 'Robert', 8: 'Gayle'}
 #new_list = sorted(dict.items(), key = lambda x: x[0])
 #print(new_list)
@@ -479,7 +491,8 @@ print(area(12,5))
 
 #7.16
 print("##7.16")
-between_min_max = lambda *args: (sorted(args)[0] + sorted(args)[len(args)-1]) /2
+#between_min_max = lambda *args: (sorted(args)[0] + sorted(args)[len(args)-1]) /2
+between_min_max = lambda *args: (min(args) + max(args)) /2
 print(between_min_max(1,2,3,9,5))
 
 def func_between_min_max(*nums):
@@ -498,18 +511,17 @@ print(sort_ignore_case(['Acc', 'abc']))
 #7.18
 print("##7.18")
 def exchange(usd=None, rub=None, rate=None):
-    lst=[usd,rub,rate]
-    args=len(lst) - lst.count(None)
-#    for i in lst:
-#        if i is not None:
-#            args.append(i)
+    arg_count=[usd,rub,rate].count(None)
+    check_lst = ['Too many arguments', None, 'Not enough arguments', 'Not enough arguments']
+    if arg_count != 1:
+        raise ValueError(check_lst[arg_count])
+    #args=len(lst) - lst.count(None)
+    print(arg_count)
 
-    print(args)
-#def exchange(**args):
-    if args < 2:
-        raise ValueError('Not enough arguments')
-    if args >= 3:
-        raise ValueError('Too many arguments')
+#    if arg_count < 2:
+#        raise ValueError('Not enough arguments')
+#    if arg_count >= 3:
+#        raise ValueError('Too many arguments')
     if rate == None:
         return rub / usd
     if rub == None:
@@ -524,7 +536,9 @@ print(exchange(rub=1000, rate=85))
 # 85.0
 # 8500
 # 11.764705882352942
-print(exchange(rub=1000, rate=85, usd=90))
+#print(exchange(rub=1000, rate=85, usd=90))
 # ValueError: Too many arguments
-print(exchange(rub=1000))
+#print(exchange(rub=1000))
 # ValueError: Not enough arguments
+
+
