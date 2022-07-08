@@ -282,3 +282,187 @@ print([12, 23, 45],[34, 56, 78], sep='. ', end=';')
 print()
 #6
 print("##6")
+def rootsq(num):
+    # Напоминание: в Python используется оператор **
+    # для возведения числа в степень.
+    # В математике возведение в степень ½ соответствует
+    # вычислению квадратного корня.
+    return num ** (1/2)
+print(rootsq(25))
+
+root = lambda num: num ** (1/2)
+print(root(36))
+
+nth_root = lambda num, n: num ** (1/n)
+print(nth_root(81,4))
+
+if_odd = lambda num: "even" if num % 2 == 0 \
+    else "odd"
+print(if_odd(7))
+print(if_odd(8))
+
+func_args = lambda *args: args
+print(func_args(2,3,5,8))
+
+full_args = lambda *args, **kwargs: (args, kwargs)
+print(full_args(2,3,5,8,a=1))
+
+
+names = ['Ivan', 'Kim', 'German', 'Margarita', 'Simon']
+names.sort()
+print(names)
+
+#########################
+def custom_key(arg):
+    return len(arg)
+names.sort(key = custom_key )
+print(names)
+
+names.sort(key = lambda name: len(name))
+print(names)
+
+def custom_key(people):
+    return len(people[0]) # second parameter denotes the age
+persons = [['Alice', 26, 'F'], ['Trudyz', 25, 'M'], ['Bob', 25, 'M'], ['Alexa', 22, 'F']]
+print(f'Before sorting: {persons}')
+persons.sort(key=custom_key)
+print(f'After sorting: {persons}')
+
+persons = [['Alice', 26, 'F'], ['Trudyz', 25, 'M'], ['Bob', 25, 'M'], ['Alexa', 22, 'F']]
+print(f'Before sorting: {persons}')
+persons.sort(key=lambda arg: len(arg[0]))
+print(f'After sorting: {persons}')
+
+#6.1
+print("##6.1")
+def get_length(arg):
+    return len(arg)
+
+new_list = ['bbb', 'ababa','aaa', 'aaaaa',  'cc']
+new_list.sort(key=get_length)
+print(new_list)
+
+#6.2
+print("##6.2")
+new_list = ['bbb', 'ababa','aaa', 'aaaaa',  'cc']
+new_list.sort(key=lambda elm: len(elm))
+print(new_list)
+
+new_list = ['bbb', 'ababa','aaa', 'aaaaa',  'cc']
+new_list.sort(key=lambda elm: (len(elm), elm ))
+print(new_list)
+
+#6.3
+print("##6.3")
+
+hyp = lambda a,b: (a**2 + b**2)**(1/2)
+print(hyp(3,4))
+hyp = lambda *arg: (arg[0]**2 + arg[1]**2)**(1/2)
+print(hyp(3,4))
+hyp = lambda arg: (arg[0]**2 + arg[1]**2)**(1/2)
+print(hyp((3,4)))
+
+#6.4
+print("##6.4")
+def sort_sides(hyp):
+    print(hyp)
+    hyp.sort(key=lambda arg: (arg[0]**2 + arg[1]**2)**(1/2))
+    for elm in hyp:
+        l = lambda arg: (arg[0]**2 + arg[1]**2)**(1/2)
+        print(l(elm))
+    #hyp.sort(key=lambda arg: arg[1])
+    return(hyp)
+
+print(sort_sides([(3,2), (1,3), (10,10)]))
+
+func_args = lambda *args: sum(args)
+print(func_args(2,3,5,8))
+
+#7.9
+print("##7.9")
+
+def get_less(lst, num):
+    #lst.sort(reverse=True)
+    #print(lst)
+    for elm in lst:
+        if elm < num:
+            return elm
+    return None
+
+
+l = [1, 5, 8, 10]
+print(get_less(l, 8))
+print(get_less(l, 0))
+
+#7.10
+print("##7.10")
+def split_date(str_date):
+    return int(str_date[0:2]),int(str_date[2:4]),int(str_date[4:8])
+print(split_date("31012019"))
+
+#7.11
+print("##7.11")
+def is_prime(num):
+    sq_root = int(num ** (1/2))
+    print(sq_root)
+    if num == 1:
+        return False
+    for i in range(2, sq_root+1):
+        print(i)
+        if num % i == 0:
+            return False
+    return True
+
+print(is_prime(1))
+print(is_prime(10))
+print(is_prime(29))
+
+#7.12
+print("##7.12")
+def between_min_max(*nums):
+    lst = list(nums)
+    lst.sort()
+    print(lst)
+    return (lst[0] + lst[len(lst) - 1]) / 2
+
+print(between_min_max(1,2,3,4,5,6,3,65,7))
+
+#7.13
+print("##7.13")
+def best_student(**kwargs):
+    #for k,v in kwargs.items():
+    #    print(k,v)
+    #print(kwargs)
+    new_list = sorted(kwargs.items(), key = lambda x: x[1])
+    return new_list[0][0]
+
+print(best_student(Tom=12, Mike=100))
+print(best_student(Tom=12))
+print(best_student(Tom=12, Jerry=1, Jane=2))
+
+#dict = {6: 'George', 2: 'John', 1: 'Potter', 9: 'Micheal', 7: 'Robert', 8: 'Gayle'}
+#new_list = sorted(dict.items(), key = lambda x: x[0])
+#print(new_list)
+
+#7.14
+print("##7.14")
+
+is_palindrom = lambda st: "yes" if st == st [::-1] else "no"
+
+print(is_palindrom('1234'))
+print(is_palindrom('12321'))
+
+#7.15
+print("##7.15")
+area = lambda a, b : a*b
+
+print(area(12,5))
+
+#7.16
+print("##7.16")
+between_min_max = lambda *args: (sorted(args)[0] + sorted(args)[len(args)-1]) /2
+print(between_min_max(1,2,3,9,5))
+
+def func_between_min_max(*nums):
+    return (sorted(nums)[0] + sorted(nums)[len(nums)-1]) / 2
+print(func_between_min_max(1,2,3,4,5,6,3,65,7))
