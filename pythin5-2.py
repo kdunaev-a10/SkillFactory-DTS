@@ -470,3 +470,71 @@ groups = group_gen(3)
 for _ in range(10):
     print(next(groups))
 
+#5.8.1
+print("###5.8.1")
+# Объявляем генератор square_gen
+def square_gen():
+    # Создаём цикл для последовательности от 1 до 10
+    for x in range(1, 11):
+        # Выдаём квадрат числа
+        yield x ** 2
+gen = square_gen()
+print(type(gen))
+square_list = list(gen)
+print(square_list)
+
+squares_generator = (x**2 for x in range(1,11))
+print(type(squares_generator))
+print(squares_generator)
+print(next(squares_generator))
+print(next(squares_generator))
+print("for loop")
+for n in squares_generator:
+    print(n)
+
+squares_generator = (x**2 for x in range(1,11))
+print(list(squares_generator))
+squares_generator = (x**2 for x in range(1,11))
+print(tuple(squares_generator))
+squares_generator = (x**2 for x in range(1,11))
+print(set(squares_generator))
+
+#5.8.1
+print("###5.8.1")
+kube_generator = (x**3 for x in range(1,16) if x % 3 == 0)
+print("for loop")
+for n in kube_generator:
+    print(n)
+
+triple_cubes_list = [x**3 for x in range(1,16) if x % 3 == 0]
+print(type(triple_cubes_list))
+print(triple_cubes_list)
+
+triple_cubes_set = {x**3 for x in range(1,16) if x % 3 == 0}
+print(type(triple_cubes_set))
+print(triple_cubes_set)
+
+triple_cubes_tuple = tuple((x**3 for x in range(1,16) if x % 3 == 0))
+print(type(triple_cubes_tuple))
+print(triple_cubes_tuple)
+
+def root_generator(values):
+    for val in values:
+        if val >= 0:
+            result = val ** 0.5
+            yield result
+
+#5.9
+print("###5.9")
+def root_generator(values):
+    for val in values:
+        if val >= 0:
+            result = val ** 0.5
+            yield result
+new_root_generator = root_generator([-5, 25, 36, -25, 0])
+for n in new_root_generator:
+    print(n)
+
+new_root_generator = (x ** 0.5 for x in [-5, 25, 36, -25, 0] if x >= 0)
+for n in new_root_generator:
+    print(n)
