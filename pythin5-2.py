@@ -236,3 +236,36 @@ print(fib(0))
 print(fib(1))
 print(fib(2))
 print(fib(6))
+
+#4.4
+print("###4.4")
+def check_string(s):
+    print(s)
+    if len(s) < 1:
+        return True
+    if s[0] == s[-1]:
+        return check_string(s[1:-1])
+    else:
+        return False
+print(check_string('ABCCBA'))
+
+
+#4.5
+print("###4.5")
+def power(val, n):
+    #print(val)
+    if n == 0: return 1
+    if n == 1: return val
+    return val * power(val, n-1)
+
+print(power(25,0))
+print(power(-5,4))
+
+
+#4.6
+print("###4.6")
+def is_leap(x):
+    return (int(x)%400 == 0) or (int(x)%4 == 0) and not (int(x)%100 == 0)
+print(is_leap(2000))
+print(is_leap(1900))
+print(is_leap(2020))
