@@ -291,6 +291,7 @@ def check_date(day, month, year):
 #    print("DEBUG 5")
     if not is_leap(year) and month == 2 and day > 28  : return False
 #    print("DEBUG 6")
+    if is_leap(year) and month == 2 and day > 29: return False
     return True
 
 print(check_date(13.5,12,2017))
@@ -308,28 +309,31 @@ print(check_date(13.5,12,2021))
 
 #4.8
 print("###4.8")
+
+def check_date(day, month, year):
+    def is_leap(year):
+        return (int(year) % 400 == 0) or (int(year) % 4 == 0) and not (int(year) % 100 == 0)
+
+    #if not ((type(day) is int) and (type(month) is int) and (type(year) is int)): return False
+    if not all(list(map(lambda x: type(x) == int, [day, month, year]))) : return False
+    if not (1900 < year < 2022): return False
+    if not (1 <= month <= 12): return False
+    if not (1 <= day <= 31): return False
+    if month in [4, 6, 9, 11] and day > 30: return False
+    if not is_leap(year) and month == 2 and day > 28: return False
+    if is_leap(year) and month == 2 and day > 29: return False
+    return True
+
 def register(surname, name, date, middle_name=None, registry=None):
-    def check_date(day, month, year):
-        def is_leap(year):
-            return (int(year) % 400 == 0) or (int(year) % 4 == 0) and not (int(year) % 100 == 0)
-
-        #if not ((type(day) is int) and (type(month) is int) and (type(year) is int)): return False
-        if not all(list(map(lambda x: type(x) == int, [day, month, year]))) : return False
-        if not (1900 < year < 2022): return False
-        if not (1 <= month <= 12): return False
-        if not (1 <= day <= 31): return False
-        if month in [4, 6, 9, 11] and day > 30: return False
-        if not is_leap(year) and month == 2 and day > 28: return False
-        return True
-
-    if registry == None: registry = []
+    if registry is None: registry = []
     if not check_date(*date): raise ValueError("Invalid Date!")
-    (d,m,y) = date
-    registry.append((surname,name,middle_name,d,m,y))
+    registry.append((surname,name,middle_name, date[0], date[1], date[2]))
     return registry
+
 
 reg = register('Petrova', 'Maria', (13, 3, 2003), 'Ivanovna')
 reg = register('Ivanov', 'Sergej', (24, 9, 1995), registry=reg)
 reg = register('Smith', 'John', (13, 2, 2003), registry=reg)
 print(reg)
-reg = register('Ivanov', 'Sergej', (24, 13, 1995))
+reg = register('Ivanov', 'Sergej', (29, 3, 2021), registry=reg)
+print(reg)

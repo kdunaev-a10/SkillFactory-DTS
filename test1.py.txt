@@ -28,3 +28,15 @@ b = 5.2
 c = 4
 print(all(list(map(lambda x: type(x) == int, [a,b,c]))))
 print(any(list(map(lambda x: type(x) == int, [a,b,c]))))
+
+a = 1
+b = a
+a += 2
+print(a)
+print(b)
+
+a = [1, 2]
+b = a
+a += [3]
+print(a)
+print(b)
