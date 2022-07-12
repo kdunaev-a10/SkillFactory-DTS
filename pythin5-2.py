@@ -269,3 +269,34 @@ def is_leap(x):
 print(is_leap(2000))
 print(is_leap(1900))
 print(is_leap(2020))
+
+
+#4.7
+print("###4.7")
+def check_date(day, month, year):
+    def is_leap(year):
+        return (int(year) % 400 == 0) or (int(year) % 4 == 0) and not (int(year) % 100 == 0)
+
+    if not ((type(day) is int) and (type(month) is int) and (type(year) is int)): return False
+    if not (1900 < year < 2022) : return False
+    if not (1 < month < 12): return False
+    if not (1 <= day <= 31): return False
+    if month in [4,6,9,11] and day > 30 : return False
+    if not is_leap(year) and month == 2 and day > 28  : return False
+    return True
+
+print(check_date(13.5,12,2021))
+print(check_date(5,12,1890))
+print(check_date(5,13,1980))
+print(check_date(54,5,1980))
+print(check_date(31,4,1980))
+print(check_date(29,2,2001))
+
+print(check_date(18,9,1999))
+print(check_date(29,2,2000))
+print(check_date(29,2,2021))
+print(check_date(13,13,2021))
+print(check_date(13.5,12,2021))
+
+#4.7
+print("###4.7")
