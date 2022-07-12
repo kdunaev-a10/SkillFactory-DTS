@@ -469,3 +469,4 @@ def group_gen(n):
 groups = group_gen(3)
 for _ in range(10):
     print(next(groups))
+
