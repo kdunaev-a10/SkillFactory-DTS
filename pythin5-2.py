@@ -335,5 +335,137 @@ reg = register('Petrova', 'Maria', (13, 3, 2003), 'Ivanovna')
 reg = register('Ivanov', 'Sergej', (24, 9, 1995), registry=reg)
 reg = register('Smith', 'John', (13, 2, 2003), registry=reg)
 print(reg)
-reg = register('Ivanov', 'Sergej', (29, 3, 2021), registry=reg)
+reg = register('Ivanov', 'Sergej', (29, 3, 2021))
 print(reg)
+
+#5
+print("###5")
+new_list = [12, 14, 16]
+iter_list = iter(new_list)
+print(iter_list)
+print(next(iter_list))
+print(next(iter_list))
+print(next(iter_list))
+
+new_list = ['admin', 'guest', 'root', 'anonymous']
+iter_list = iter(new_list)
+while True:
+    try:
+        print(next(iter_list))
+    except StopIteration:
+        print("Empty list")
+        break
+
+iter_list = iter(new_list)
+for user in iter_list:
+    print(user)
+
+new_list = ['admin', 'guest', 'root', 'anonymous']
+for i, user in enumerate(new_list):
+    # Выводим индекс и элемент на экран через двоеточие
+    print(i, user, sep=': ')
+
+new_list = ['admin', 'guest', 'root', 'anonymous']
+enum_users = enumerate(new_list)
+enum_list = list(enum_users)
+print(enum_list)
+
+# Создаём цикл по элементам итератора
+for i, user in enum_users:
+    print("iter: ", i, user, sep=': ')
+#Ничего не будет напечатано
+
+#print(next(enum_users))
+# Возникнет ошибка:
+# StopIteration:
+
+print()
+
+# Объявляем функцию для расчёта суммы вклада
+def deposit(money, interest):
+    # Процент по вкладу преобразуем во множитель:
+    # делим процент на 100 и прибавляем 1
+    interest = interest/100 + 1
+    # Создаем бесконечный цикл
+    while True:
+        # Сумма вклада через год — это
+        # текущая сумма, умноженная на коэффициент и
+        # округлённая до двух знаков после запятой
+        money = round(interest * money, 2)
+        # Выдаём полученную сумму вклада
+        yield money
+        #return money
+print(deposit(1000, 5))
+bank = deposit(1000,5)
+print(next(bank))
+print(next(bank))
+print(next(bank))
+
+print()
+# Объявляем функцию для расчёта суммы вклада
+# Аргумент years принимает число лет, на которое рассчитан вклад
+def deposit_years(money, interest, years):
+    interest = interest/100 + 1
+    # Вместо while используем цикл for с range
+    for year in range (years):
+        money = round(interest * money, 2)
+        yield money
+
+bank2 = deposit_years(1500, 3, 2)
+print(next(bank2))
+print(next(bank2))
+#print(next(bank2))
+
+print()
+bank3 = deposit_years(10000, 10, 3)
+for money in bank3:
+    print(money)
+#print(next(bank3))
+
+print()
+bank3 = deposit_years(10000, 10, 3)
+sums = list(bank3)
+print(sums)
+
+
+#5.5
+print("###5.5")
+def mygen():
+    i=7
+    print('hello')
+    while i>0:
+        i-=1
+        yield i
+gen = mygen()
+print(gen)
+print(next(gen))
+
+#5.6
+print("###5.6")
+gen = mygen()
+for i in gen:
+    print(i, end=' ')
+print()
+
+#5.7
+print("###5.7")
+def inf_iter(l_in):
+    while True:
+        for char in l_in:
+            yield char
+
+l = [101, 102, 103]
+gen = inf_iter(l)
+for _ in range(5):
+    print(next(gen))
+
+#5.8
+print("###5.8")
+def group_gen(n):
+    while True:
+        for i in range(1,n+1):
+            yield i
+
+groups = group_gen(3)
+for _ in range(10):
+    print(next(groups))
