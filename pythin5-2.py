@@ -277,15 +277,23 @@ def check_date(day, month, year):
     def is_leap(year):
         return (int(year) % 400 == 0) or (int(year) % 4 == 0) and not (int(year) % 100 == 0)
 
-    if not ((type(day) is int) and (type(month) is int) and (type(year) is int)): return False
+    #if not ((type(day) is int) and (type(month) is int) and (type(year) is int)): return False
+#    print(list(map(lambda x: type(x) == int, [day, month, year])))
+    if not all(list(map(lambda x: type(x) == int, [day, month, year]))) : return False
+#    print("DEBUG 1")
     if not (1900 < year < 2022) : return False
-    if not (1 < month < 12): return False
+#    print("DEBUG 2")
+    if not (1 <= month <= 12): return False
+#    print("DEBUG 3")
     if not (1 <= day <= 31): return False
+#    print("DEBUG 4")
     if month in [4,6,9,11] and day > 30 : return False
+#    print("DEBUG 5")
     if not is_leap(year) and month == 2 and day > 28  : return False
+#    print("DEBUG 6")
     return True
 
-print(check_date(13.5,12,2021))
+print(check_date(13.5,12,2017))
 print(check_date(5,12,1890))
 print(check_date(5,13,1980))
 print(check_date(54,5,1980))
@@ -298,5 +306,30 @@ print(check_date(29,2,2021))
 print(check_date(13,13,2021))
 print(check_date(13.5,12,2021))
 
-#4.7
-print("###4.7")
+#4.8
+print("###4.8")
+def register(surname, name, date, middle_name=None, registry=None):
+    def check_date(day, month, year):
+        def is_leap(year):
+            return (int(year) % 400 == 0) or (int(year) % 4 == 0) and not (int(year) % 100 == 0)
+
+        #if not ((type(day) is int) and (type(month) is int) and (type(year) is int)): return False
+        if not all(list(map(lambda x: type(x) == int, [day, month, year]))) : return False
+        if not (1900 < year < 2022): return False
+        if not (1 <= month <= 12): return False
+        if not (1 <= day <= 31): return False
+        if month in [4, 6, 9, 11] and day > 30: return False
+        if not is_leap(year) and month == 2 and day > 28: return False
+        return True
+
+    if registry == None: registry = []
+    if not check_date(*date): raise ValueError("Invalid Date!")
+    (d,m,y) = date
+    registry.append((surname,name,middle_name,d,m,y))
+    return registry
+
+reg = register('Petrova', 'Maria', (13, 3, 2003), 'Ivanovna')
+reg = register('Ivanov', 'Sergej', (24, 9, 1995), registry=reg)
+reg = register('Smith', 'John', (13, 2, 2003), registry=reg)
+print(reg)
+reg = register('Ivanov', 'Sergej', (24, 13, 1995))

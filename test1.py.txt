@@ -5,20 +5,26 @@ print ("Git"+"Hub project")
 print("added","from GitHub corrected")
 pprint("test")
 
-first_name = input("Enter your firstname:")
-last_name = input("Enter your lastname:")
-age = input("Enter your age:")
-city = input("Enter your city of residence:")
+#first_name = input("Enter your firstname:")
+#last_name = input("Enter your lastname:")
+#age = input("Enter your age:")
+#city = input("Enter your city of residence:")
 # Выводим пустую строку
 print("")
 # Выводим приветствие, подставляя имя и фамилию пользователя,
 # которые он ввёл с клавиатуры
-print("Hello,", first_name, last_name, "!")
+#print("Hello,", first_name, last_name, "!")
 # Выводим пустую строку
 print("")
 print("")
 # Выводим фиксированный текст для удобства просмотра
 print("Your profile:")
 # Выводим возраст и город, которые указал пользователь
-print("Age:", age, "Years")
-print("City:", city)
+#print("Age:", age, "Years")
+#print("City:", city)
+
+a = 2
+b = 5.2
+c = 4
+print(all(list(map(lambda x: type(x) == int, [a,b,c]))))
+print(any(list(map(lambda x: type(x) == int, [a,b,c]))))
