@@ -700,4 +700,5 @@ iterable = list(range(1, 7))
 # Применяем lambda-функцию для вычисления к произведения к списку
 reduced = reduce(lambda x,y: x*y , iterable)
 print(reduced)
+
 print(reduce(lambda x,y: x+y, range(6)))
