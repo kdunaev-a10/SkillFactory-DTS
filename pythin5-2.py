@@ -538,3 +538,166 @@ for n in new_root_generator:
 new_root_generator = (x ** 0.5 for x in [-5, 25, 36, -25, 0] if x >= 0)
 for n in new_root_generator:
     print(n)
+
+print("triple dict")
+triple_cubes_dict = {x:x**3 for x in range(1,16) if x % 3 == 0}
+print(type(triple_cubes_dict))
+print(triple_cubes_dict)
+
+st = "asdfghasdf"
+st_dict = {x:0 for x in st}
+print(st_dict)
+
+st = "asdfghasdf"
+st_dict1 = {x:st.count(x) for x in st_dict.keys()}
+print(st_dict1)
+
+#6
+print('##6')
+def get_length(word):
+    return len(word)
+names = ['Ivan', 'Nikita', 'Simon', 'Margarita', 'Vasilisa', 'Kim']
+lens = map(get_length, names)
+print(next(lens))
+print(next(lens))
+
+lst = list(map(get_length, names))
+print(lst)
+
+lens = list(map(lambda x: len(x), names))
+print(lens)
+
+#6.1
+print('##6.1')
+docs = [
+    '//doc/5041434?query=data%20science',
+    '//doc/5041567?query=data%20science',
+    '//doc/4283670?query=data%20science',
+    '//doc/3712659?query=data%20science',
+    '//doc/4997267?query=data%20science',
+    '//doc/4372673?query=data%20science',
+    '//doc/3779060?query=data%20science',
+    '//doc/3495410?query=data%20science',
+    '//doc/4308832?query=data%20science',
+    '//doc/4079881?query=data%20science'
+]
+url = 'https://www.kommersant.ru'
+
+links = map(lambda s: url+s,docs)
+for i in docs:
+    print(next(links))
+
+even_list = list(filter(lambda x: x % 2 == 0,lens))
+print(even_list)
+
+#6.2
+print('##6.2')
+family_list = [
+    'certificate of a large family',
+    'social card',
+    'maternity capital',
+    'parking permit',
+    'tax benefit',
+    'reimbursement of expenses',
+    "compensation for the purchase of children's goods"
+    ]
+
+def family(*arg):
+    family_list = [
+    'certificate of a large family',
+    'social card',
+    'maternity capital',
+    'parking permit',
+    'tax benefit',
+    'reimbursement of expenses',
+    "compensation for the purchase of children's goods"
+    ]
+    print(arg)
+    lst = list(filter(lambda s: s in family_list, arg))
+    return lst
+    #ваш код здесь. используйте функцию filter()
+
+
+#вызов функции
+print(family(
+    'newborn registration',
+    'parking permit',
+    'maternity capital',
+    'tax benefit',
+    'medical policy'
+    )
+)
+
+#6.3
+print('##6.3')
+
+names = ['Ivan', 'Nikita', 'Simon', 'Margarita', 'Vasilisa', 'Kim']
+long_names = filter(lambda s: len(s) >= 5, names)
+#print(next(long_names))
+count_a = map(lambda x: (x, x.upper().count('A')), long_names)
+print(list(count_a))
+
+
+reg = [('Ivanov', 'Sergej', 24, 9, 1995),
+      ('Smith', 'John', 13, 2, 2003),
+      ('Petrova', 'Maria', 13, 3, 2003)]
+
+#year_2000 = filter(lambda y: y[4] > 2000, reg)
+year_2000 = filter(lambda y: y[-1] > 2000, reg)
+
+new_reg = map(lambda tuple: (tuple[0]+' '+tuple[1][:1]+'.', tuple[2], tuple[3], tuple[4]), year_2000)
+print(list(new_reg))
+
+
+def update_tuple(arg):
+    # Выделяем фамилию из кортежа
+    surname = arg[0]
+    # Выделяем имя из кортежа
+    name = arg[1]
+    # Создаём новую запись: фамилия + пробел + первая буква имени + точка
+    new_surname = surname + ' ' + name[0] + '.'
+    # Возвращаем обновлённый кортеж
+    return (new_surname, arg[2], arg[3], arg[4])
+
+# Фильтруем записи по условию, что последний элемент кортежа > 2000
+filter_reg = filter(lambda x: x[-1] > 2000, reg)
+# Применяем функцию-преобразование к каждому кортежу из списка и создаём новый список
+new_reg = list(map(update_tuple, filter_reg))
+
+
+
+
+#6.4
+print('##6.4')
+surnames = ['Ivanov', 'Smirnov', 'Kuznetsova', 'Nikitina']
+ames = ['Sergej', 'Ivan', 'Maria', 'Elena']
+names = ['Sergej', 'Ivan']
+# Создаём цикл по элементам итератора zip — кортежам из фамилий и имён
+for surname, name in zip(surnames, names):
+    print(surname, name)
+
+def group_gen(n=3):
+    while True:
+        for i in range(1, n+1):
+            yield i
+
+g = group_gen()
+for i in range(11):
+    print(next(g))
+
+def print_groups(users):
+    group_n = group_gen()
+    group_list = zip(users, group_gen())
+    for s,g in group_list:
+        print("{} in group {}".format(s,g))
+
+
+users = ['Smith J.', 'Petrova M.', 'Lubimov M.', 'Holov J.']
+print_groups(users)
+
+from functools import reduce
+iterable = list(range(1, 7))
+# Применяем lambda-функцию для вычисления к произведения к списку
+reduced = reduce(lambda x,y: x*y , iterable)
+print(reduced)
+print(reduce(lambda x,y: x+y, range(6)))
