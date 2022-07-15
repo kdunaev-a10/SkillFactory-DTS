@@ -157,8 +157,8 @@ def find_min_number(a, b, c):
 
 print(find_min_number(2,2,3))
 
-#3.4
-print("###3.4")
+#3.5
+print("###3.5")
 def sum_min_numbers(a, b, c):
     min1 = find_min_number(a, b, c)
     if min1 == a:
@@ -169,4 +169,66 @@ def sum_min_numbers(a, b, c):
         min2 = find_min_number(a, a, b)
     return min1+min2
 
-print(sum_min_numbers(-2, -1, -3))
+def sum_min_numbers1(a, b, c):
+    min1 = find_min_number(a, b, c)
+    if min1 == a:
+        min2 = find_min_number(b, b, c)
+    elif min1 == b:
+        min2 = find_min_number(a, c, c)
+    else:
+        min2 = find_min_number(a, a, b)
+    return min1+min2
+
+print(sum_min_numbers1(1, 2, 3))
+
+#3.6
+print("###3.6")
+# Напишите функцию is_divided_by_six(), которая проверяет, делится ли число на шесть.
+# При решении воспользуйтесь тернарным оператором!
+# Функция должна вернуть True, если число делится на шесть или False в обратном случае.
+# Подсказка: число делится на шесть, если оно делится на 2 и на 3
+
+def is_divided_by_six(number):
+
+  return True if (number % 2 == 0 and number % 3 == 0) else False
+
+print(is_divided_by_six(13))
+print(is_divided_by_six(12))
+
+#3.7
+print("###3.7")
+# Напишите функцию check_number_sign(), которая возвращает 1, если число положительное,
+# -1, если число отрицательное, 0, если число - 0.
+# Используйте в коде конструкцию if-elif-else.
+# Функция принимает на вход одно число.
+
+def check_number_sign(x):
+    if x > 0:
+        result = 1
+    elif x < 0:
+        result = -1
+    else:
+        result = 0
+    return result
+
+
+print(check_number_sign(0))
+print(check_number_sign(100))
+print(check_number_sign(-1))
+
+#3.8
+print("###3.8")
+# Напишите функцию def division(), которая осуществляет деление двух чисел.
+# Необходимо реализовать внутри функции отлов исключения ZeroDivisionError,
+# в случае, если пользователь, при вызове функции, пытается поделить на ноль.
+# Функция принимает на вход два числа - делимое и делитель.
+
+def division(a, b):
+  try:
+      return a / b
+  except ZeroDivisionError:
+      print('Error! Matrices dimensions are different!')
+      return None
+
+print(division(1, 0))
+print(division(1, 1))
