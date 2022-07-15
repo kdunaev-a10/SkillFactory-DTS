@@ -702,3 +702,121 @@ reduced = reduce(lambda x,y: x*y , iterable)
 print(reduced)
 
 print(reduce(lambda x,y: x+y, range(6)))
+
+#7
+print('###7')
+
+
+# Декорирующая функция принимает в качестве
+# аргумента название функции
+def simple_decorator(func):
+    # Функция, в которой происходит модификация поведения
+    # функции func. Она будет принимать те же аргументы,
+    # что и функция func, которую декорирует decorated_function.
+    # Чтобы принять все возможные аргументы, используем сочетание
+    # *args и *kwargs.
+    def decorated_function(*args, **kwargs):
+        # Печатаем принятые аргументы
+        print("Input:")
+        print("Positional:", args)
+        print("Named:", kwargs)
+        # С помощью конструкции *args/**kwargs
+        # считаем результат выполнения функции func
+        result = func(*args, **kwargs)
+        # Печатаем результат выполнения функции
+        print("Result:", result)
+        # Не забываем вернуть результат, чтобы
+        # не повлиять на поведение декорируемой функции!
+        return result
+
+    # Внешняя функция возвращает функцию
+    # decorated_function
+    return decorated_function
+
+def root(value, n=2):
+    result = value ** (1/n)
+    return result
+
+# Декорируем функцию root с помощью функции simple_decorator
+decorated_root = simple_decorator(root)
+# В decorated_root теперь действительно хранится функция
+print(type(decorated_root))
+print(decorated_root(625,4))
+
+print("decorated with  @")
+@simple_decorator
+def root_1(value, n=2):
+    result = value ** (1/n)
+    return result
+print(root(625))
+print(root_1(625))
+
+print()
+# Из модуля time импортируем функцию time
+from time import time
+
+def time_decorator(func):
+    def decorated_func(*args, **kwargs):
+        start = time()
+        result = func(*args, **kwargs)
+        end = time()
+        delta = end - start
+        print('Delta ', delta)
+        return result
+    return decorated_func
+
+@time_decorator
+def root_2(value, n=2):
+    result = value ** (1/n)
+    return result
+print(root_2(6255,4))
+
+from time import time
+
+print()
+# Декоратор, который возвращает декоратор. Он принимает число
+# запусков декорируемой функции для усреднения времени
+def time_runs(n_runs):
+    # Декоратор, который уже будет возвращать непосредственно
+    # декорированную функцию
+    def time_decorator(func):
+        # Функция, в которой непосредственно
+        # происходит запуск основной функции
+        def decorated_func(*args, **kwargs):
+            start = time()
+            for i in range(n_runs):
+                result = func(*args, **kwargs)
+            end = time()
+            mean_time = (end - start) / n_runs
+            print("Mean timne: ", mean_time)
+            return result
+        return decorated_func
+    return time_decorator
+
+
+@time_runs(1000)
+def root_3(value, n=2):
+    result = value ** (1/n)
+    return result
+
+print(root_3(625,4))
+
+#7.3
+print('##7.3')
+def logger(name):
+    def logger_decorator(func):
+        def decorated_func(*args, **kwargs):
+            print(name +": Function", func.__name__, "started")
+            result = func(*args, **kwargs)
+            print(name +": Function", func.__name__, "finished")
+            return result
+        return decorated_func
+    return logger_decorator
+
+@time_runs(10)
+@logger('MainLogger')
+def root(val, n=2):
+    res = val ** (1 / n)
+    return res
+
+print(root(25))
