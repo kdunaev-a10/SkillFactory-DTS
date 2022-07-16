@@ -296,7 +296,16 @@ def fib_number(n):
         return 1
     return fib_n
 
-print(fib_number1(4))
+def fib_number2(n):
+    fib_n = 0
+    fib_n_1 = 1
+    temp = 1
+    for _ in range(0, n):
+        print(fib_n, temp)
+        fib_n, temp = fib_n + temp, fib_n
+    return fib_n
+
+print(fib_number2(6))
 
 #4.6
 print("###4.6")
@@ -356,13 +365,7 @@ matrix_example1 = [
 ]
 
 def matrix_sum(matrix1, matrix2):
-    num_row_1 = len(matrix1)
-    num_row_2 = len(matrix2)
-    elm_count_1 = len(matrix1[0])
-    elm_count_2 = len(matrix2[0])
-    print(num_row_1, num_row_2,elm_count_1, elm_count_2)
-
-    if (num_row_1 != num_row_2) or (elm_count_1 != elm_count_2):
+    if len(matrix1) != len(matrix2) or len(matrix1[0]) != len(matrix2[0]):
         print('Error! Matrices dimensions are different!')
         return None
     matrix_s = matrix1.copy()
@@ -372,4 +375,169 @@ def matrix_sum(matrix1, matrix2):
             matrix_s[i][j] += elm
     return matrix_s
 
+def matrix_sum(matrix1, matrix2):
+    if len(matrix1) != len(matrix2) or len(matrix1[0]) != len(matrix2[0]):
+        print('Error! Matrices dimensions are different!')
+        return None
+    matrix_s = []
+    for i in range(len(matrix1)):
+        line_temp = []
+        for j in range(len(matrix1[0])):
+            line_temp.append(matrix1[i][j] + matrix2[i][j])
+        matrix_s.append(line_temp)
+    return matrix_s
+
+
 print(matrix_sum(matrix_example, matrix_example))
+
+#4.8
+print("###4.8")
+input_str = 'aaabbccccdaa'
+count_sym = 0
+previous_sym = input_str[0]
+compress_str = ''
+for s in input_str:
+    if s == previous_sym:
+        count_sym += 1
+    else:
+        compress_str += previous_sym + str(count_sym)
+        previous_sym = s
+        count_sym = 1
+compress_str += previous_sym + str(count_sym)
+print(compress_str)
+
+
+#5.4
+print("###5.4")
+def distance_dots(x1=0,y1=0,x2=0,y2=0):
+    type_list = list(map(lambda x: (type(x) is int) or (type(x) is float), [x1,y1,x2,y2]))
+    print(all(type_list))
+    try:
+        if not all(type_list):
+            raise ValueError
+    except ValueError:
+        print("Arguments are not numbers!")
+        return None
+
+    print("Argummets are numbers")
+    return (((x1 - x2)**2) + ((y1 - y2)**2))**1/2
+
+print(distance_dots(1,2,"a",0.2))
+
+
+#5.5
+print("###5.5")
+def average_list(arg_list):
+    type_list = list(map(lambda x: (type(x) is int) or (type(x) is float), arg_list))
+    print(all(type_list))
+    try:
+        if not all(type_list) or type(arg_list) is not list:
+            raise ValueError("You should pass list with numbers to this function!")
+    except ValueError as err:
+        print(err)
+        return None
+
+    print("Argummets are numbers")
+    #sum_arg = 0
+    #for elm in arg_list:
+    #    sum_arg += elm
+    #return sum_arg/len(arg_list)
+    return sum(arg_list) / len(arg_list)
+
+
+
+temp_list =[1,4,3,4]
+temp_list1 = "a"
+print(average_list(temp_list1))
+
+#5.6
+print("###5.6")
+temp_list =[1,4,3,4]
+
+aver_lambda = lambda lst: sum(lst)/len(lst)
+print(aver_lambda(temp_list))
+#between_min_max = lambda *args: (sorted(args)[0] + sorted(args)[len(args)-1]) /2
+
+#5.7
+print("###5.7")
+
+text_example = "A beginning is the time for taking the most delicate care that the balances are correct. This every sister of the Bene Gesserit knows. To begin your study of the life of Muad'Dib, then take care that you first place him in his time: born in the 57th year of the Padishah Emperor, Shaddam IV. And take the most special care that you locate Muad'Dib in his place: the planet Arrakis. Do not be deceived by the fact that he was born on Caladan and lived his first fifteen years there. Arrakis, the planet known as Dune, is forever his place."
+
+def count_words(arg_text):
+    punctuation_list = ['.', ',', ';', ':', '...', '!', '?', '-', '"', '(', ')']
+    alphabet_str = 'abcdefghijklmnopqrstuvwxyz'
+    #words_start = {letters: 0 for letters in alphabet_str}
+    words_start = {letters:0 for letters in alphabet_str}
+    print(words_start)
+
+    for sym in punctuation_list:
+        arg_text = arg_text.replace(sym, "")
+    word_list = arg_text.lower().split()
+    print(word_list)
+
+    for word in word_list:
+        if word[0] in alphabet_str:
+            words_start[word[0]] += 1
+        else:
+            words_start[word[0]] = 1
+
+    return words_start
+
+
+print(count_words(text_example))
+
+#5.8
+print("###5.8")
+users_list = ['admin', 'ivan', 'ivan_ivan']
+
+def check_user(name):
+    def check_decorator(func):
+        def decorated_func(*arg, **kwargs):
+            if name in users_list:
+                print('exists...run func')
+                result = func(*arg, **kwargs)
+            else:
+                print('user doesnt exist')
+                result = None
+            return result
+        return decorated_func
+    return check_decorator
+
+
+user_name = 'admin'
+@check_user(user_name)
+def get_data_from_database():
+    print("Super secure data from database")
+
+get_data_from_database()
+
+#5.9
+print("###5.9")
+input_str = 'aaabbccccdaaaaa'
+count_sym = 0
+previous_sym = input_str[0]
+compress_str = {s:0 for s in set(input_str)}
+print(compress_str)
+for s in input_str:
+    if s == previous_sym:
+        count_sym += 1
+    else:
+        if compress_str[previous_sym] <=  count_sym:
+            compress_str[previous_sym] = count_sym
+        previous_sym = s
+        count_sym = 1
+if compress_str[previous_sym] <= count_sym:
+    compress_str[previous_sym] = count_sym
+
+print(compress_str)
+max_counter = 0
+max_letter = ''
+for key in compress_str:
+    if compress_str[key] > max_counter:
+        max_counter = compress_str[key]
+        max_letter = key
+
+print(max_letter, compress_str[max_letter])
+
+
+print('#############')
