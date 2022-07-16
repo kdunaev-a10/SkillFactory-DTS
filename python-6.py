@@ -514,6 +514,7 @@ get_data_from_database()
 #5.9
 print("###5.9")
 input_str = 'aaabbccccdaaaaa'
+#input_str = ''
 count_sym = 0
 previous_sym = input_str[0]
 compress_str = {s:0 for s in set(input_str)}
@@ -530,6 +531,7 @@ if compress_str[previous_sym] <= count_sym:
     compress_str[previous_sym] = count_sym
 
 print(compress_str)
+
 max_counter = 0
 max_letter = ''
 for key in compress_str:
@@ -539,5 +541,44 @@ for key in compress_str:
 
 print(max_letter, compress_str[max_letter])
 
+print('#############')
+
+input_str = 'aaabbccccdaaaaa'
+#input_str = ''
+count_sym = 0
+max_counter = 0
+if len(input_str) == 0:
+    print(max_counter)
+    exit(0)
+
+for s in input_str:
+    if s == previous_sym:
+        count_sym += 1
+    else:
+        if max_counter < count_sym:
+            max_counter = count_sym
+        previous_sym = s
+        count_sym = 1
+if max_counter < count_sym:
+    max_counter = count_sym
+print(max_counter)
 
 print('#############')
+a = 1
+b = 2
+print(a,b)
+a,b = b, a
+print(a,b)
+
+print('#############')
+def fib_number2(n):
+    fib_n = 0
+    fib_n_1 = 1
+    temp = 1
+    for _ in range(0, n):
+        print(fib_n, temp)
+        fib_n, temp = fib_n + temp, fib_n
+        print(fib_n, temp)
+    return fib_n
+
+print(fib_number2(6))
