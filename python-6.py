@@ -531,6 +531,8 @@ if compress_str[previous_sym] <= count_sym:
     compress_str[previous_sym] = count_sym
 
 print(compress_str)
+print("MAX")
+print(max(compress_str, key = compress_str.get), compress_str[max(compress_str, key = compress_str.get)])
 
 max_counter = 0
 max_letter = ''
@@ -540,6 +542,8 @@ for key in compress_str:
         max_letter = key
 
 print(max_letter, compress_str[max_letter])
+
+print(compress_str.get(max_letter))
 
 print('#############')
 
@@ -563,6 +567,8 @@ if max_counter < count_sym:
     max_counter = count_sym
 print(max_counter)
 
+
+
 print('#############')
 a = 1
 b = 2
@@ -576,9 +582,7 @@ def fib_number2(n):
     fib_n_1 = 1
     temp = 1
     for _ in range(0, n):
-        print(fib_n, temp)
         fib_n, temp = fib_n + temp, fib_n
-        print(fib_n, temp)
     return fib_n
 
 print(fib_number2(6))
