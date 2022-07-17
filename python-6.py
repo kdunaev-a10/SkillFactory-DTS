@@ -587,4 +587,3 @@ def fib_number2(n):
 
 print(fib_number2(6))
 
-print(fib_number2(6))
