@@ -585,5 +585,6 @@ def fib_number2(n):
         fib_n, temp = fib_n + temp, fib_n
     return fib_n
 
+
 print(fib_number2(6))
 
