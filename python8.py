@@ -1,20 +1,4 @@
 import numpy as np
-number = np.random.randint(1, 101) # загадываем число
-count = 0
-while True:
-    count += 1
-    #predict_number = int(input("Угадай число от 1 до 100"))
-    predict_number = number
-
-    if predict_number > number:
-        print("Число должно быть меньше!")
-
-    elif predict_number < number:
-        print("Число должно быть больше!")
-
-    else:
-        print(f"Вы угадали число! Это число = {number}, за {count} попыток")
-        break # конец игры, выход из цикла
 
 """Игра угадай число.
 Компьютер сам загадывает и угадывает число
@@ -51,7 +35,7 @@ def score_game(random_predict) -> int:
 
     count_ls = []
     np.random.seed(1) # фиксируем сид для воспроизводимости
-    random_array = np.random.randint(1, 100, size=(1000))
+    random_array = np.random.randint(1, 50, size=(1000))
     for number in random_array:
         count_ls.append(random_predict(number))
     score = int(np.mean(count_ls))
@@ -59,4 +43,5 @@ def score_game(random_predict) -> int:
     print(f'Ваш алгоритм угадывает число в среднем за: {score} попыток')
     return(score)
 
-score_game(random_predict)
+if __name__ == '__main__':
+    score_game(random_predict)
