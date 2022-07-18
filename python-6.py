@@ -578,6 +578,21 @@ print(a,b)
 
 print('#############')
 def fib_number2(n):
+    """
+    The fib_number2 function computes the nth Fibonacci number, where n is a non-negative integer.
+    The function uses memoization to speed up the computation of larger Fibonacci numbers.
+
+    :param n: Specify the nth number in the sequence
+    :return: The nth fibonacci number
+    :doc-author: Trelent
+    """
+    """
+    :param n: 
+    :return: 
+    
+    """
+
+
     fib_n = 0
     fib_n_1 = 1
     temp = 1
@@ -587,6 +602,9 @@ def fib_number2(n):
 
 
 print(fib_number2(6))
+
+
+
 
 
 
