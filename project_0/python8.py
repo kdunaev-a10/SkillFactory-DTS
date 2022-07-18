@@ -132,7 +132,7 @@ def score_game_recursive(func_predict) -> int:
 if __name__ == '__main__':
     #print("Random prediction: ")
     #score_game(random_predict)    
-    print("Hakf-divide prediction: ")
+    print("Half-divide prediction: ")
     score_game(half_predict)
     print("Half-divide using recursive prediction: ")
     score_game_recursive(recursive_predict)
