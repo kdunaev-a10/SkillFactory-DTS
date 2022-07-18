@@ -49,8 +49,33 @@ def half_predict(number:int=50) -> int:
             break # выход из цикла, если угадали
     return(count)
 
+def recursive_predict(number, left, right) -> int:
+    """_summary_
 
-def score_game(random_predict) -> int:
+    Args:
+        min (_type_): _description_
+        max (_type_): _description_
+        number (int, optional): _description_. Defaults to 50.
+
+    Returns:
+        int: _description_
+    """
+    global count
+    
+    predict_number = int((left + right)/2) # предполагаемое число
+    if number > predict_number:
+        count += 1
+        recursive_predict(number, predict_number, right)
+            
+    elif number < predict_number:
+        count += 1
+        recursive_predict(number, left, predict_number )
+            
+    if number == predict_number:
+        #break # выход из цикла, если угадали
+        return(count)
+
+def score_game(func_predict) -> int:
     """
     The score_game function will take a function that randomly guesses a number between 1 and 99
     (inclusive) and returns how many guesses it took to get the right answer.
@@ -62,11 +87,15 @@ def score_game(random_predict) -> int:
     :doc-author: Trelent"""
 
 
+    global count
     count_ls = []
     np.random.seed(1) # фиксируем сид для воспроизводимости
     random_array = np.random.randint(1, range_random, size=(1000))
     for number in random_array:
-        count_ls.append(random_predict(number))
+        count = 0
+        #count_ls.append(func_predict(number))
+        func_predict(number, 1, range_random)
+        count_ls.append(count)
     score = int(np.mean(count_ls))
 
     print(f'Ваш алгоритм угадывает число в среднем за: {score} попыток')
@@ -74,7 +103,8 @@ def score_game(random_predict) -> int:
 
 if __name__ == '__main__':
     range_random = 500
-    #score_game(random_predict)
-    score_game(half_predict)
+    #score_game(random_predict)    
+    #score_game(half_predict)
+    score_game(recursive_predict)
 #end   
 #end
