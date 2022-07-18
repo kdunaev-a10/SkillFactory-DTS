@@ -30,7 +30,7 @@ def half_predict(number:int=50) -> int:
     Returns:
         int: number of repeats 
     """
-
+    range_random = 100
     count = 0
     predict_number = int(range_random / 2) # предполагаемое число
     min_last = 1
@@ -89,7 +89,7 @@ def score_game(func_predict) -> int:
     Returns:
         int: average of repeats
     """
-
+    range_random = 100
     count_ls = []
     np.random.seed(1) # фиксируем сид для воспроизводимости
     random_array = np.random.randint(1, range_random, size=(1000))
@@ -114,6 +114,7 @@ def score_game_recursive(func_predict) -> int:
     Returns:
         int: average of repeats
     """
+    range_random = 100
     global count
     count_ls = []
     np.random.seed(1) # фиксируем сид для воспроизводимости
@@ -129,7 +130,6 @@ def score_game_recursive(func_predict) -> int:
     return(score)
 
 if __name__ == '__main__':
-    range_random = 100
     #print("Random prediction: ")
     #score_game(random_predict)    
     print("Hakf-divide prediction: ")
