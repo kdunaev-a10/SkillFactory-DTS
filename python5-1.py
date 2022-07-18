@@ -7,7 +7,6 @@ my_lst = [10, 21, 24, 12]
 
 print(multiply_lst(my_lst))
 
-
 def print_hours(minutes):
     # // — это оператор целочисленного деления
     hours = minutes // 60
