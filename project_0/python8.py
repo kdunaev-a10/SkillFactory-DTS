@@ -3,11 +3,11 @@ import numpy as np
 """Игра угадай число.
 Компьютер сам загадывает и угадывает число
 """
-def random_predict(number:int=50) -> int:
+def random_predict(number:int=1) -> int:
     """Рандомно угадываем число
 
     Args:
-        number (int, optional): Загаданное число. Defaults to 50.
+        number (int, optional): Загаданное число. Defaults to 1
 
     Returns:
         int: Число попыток
@@ -20,6 +20,35 @@ def random_predict(number:int=50) -> int:
         if number == predict_number:
             break # выход из цикла, если угадали
     return(count)
+
+def half_predict(number:int=50) -> int:
+    """Guess using half/divide
+
+    Args:
+        number (int, optional): _description_. Defaults to 50.
+
+    Returns:
+        int: _description_
+    """
+
+    count = 0
+    predict_number = int(range_random / 2) # предполагаемое число
+    min_last = 1
+    max_last = range_random
+    while True:
+        count += 1
+        if number > predict_number:
+            min_last = predict_number
+            predict_number = int((min_last + max_last)/2)
+            
+        elif number < predict_number:
+            max_last = predict_number
+            predict_number = int((min_last + max_last)/2)
+            
+        if number == predict_number:
+            break # выход из цикла, если угадали
+    return(count)
+
 
 def score_game(random_predict) -> int:
     """
@@ -35,7 +64,7 @@ def score_game(random_predict) -> int:
 
     count_ls = []
     np.random.seed(1) # фиксируем сид для воспроизводимости
-    random_array = np.random.randint(1, 50, size=(1000))
+    random_array = np.random.randint(1, range_random, size=(1000))
     for number in random_array:
         count_ls.append(random_predict(number))
     score = int(np.mean(count_ls))
@@ -44,6 +73,8 @@ def score_game(random_predict) -> int:
     return(score)
 
 if __name__ == '__main__':
-    score_game(random_predict)
+    range_random = 500
+    #score_game(random_predict)
+    score_game(half_predict)
 #end   
 #end
