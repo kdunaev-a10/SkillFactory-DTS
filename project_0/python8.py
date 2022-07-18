@@ -25,10 +25,10 @@ def half_predict(number:int=50) -> int:
     """Guess using half/divide
 
     Args:
-        number (int, optional): _description_. Defaults to 50.
+        number (int, optional): Number to guess. Defaults to 50.
 
     Returns:
-        int: _description_
+        int: number of repeats 
     """
 
     count = 0
@@ -50,15 +50,15 @@ def half_predict(number:int=50) -> int:
     return(count)
 
 def recursive_predict(number, left, right) -> int:
-    """_summary_
+    """Guess using half/divide by recursive
 
     Args:
-        min (_type_): _description_
-        max (_type_): _description_
-        number (int, optional): _description_. Defaults to 50.
+        left (_type_): the left limit of the range 
+        right (_type_): the left limit of the range
+        number (int, optional): number ot guess
 
     Returns:
-        int: _description_
+        int: number of repeats
     """
     global count
     
@@ -73,7 +73,7 @@ def recursive_predict(number, left, right) -> int:
             
     if number == predict_number:
         #break # выход из цикла, если угадали
-        return(count)
+        return
 
 def score_game(func_predict) -> int:
     """
@@ -82,11 +82,38 @@ def score_game(func_predict) -> int:
     The function will also take an integer parameter determining how many times the game is played.
     The score_game function will return the average number of guesses it took to win each game.
 
-    :param random_predict: Pass the function that will be used to predict the number
-    :return: ?
-    :doc-author: Trelent"""
+
+    Args:
+        func_predict: Pass the function that will be used to predict the number
+    
+    Returns:
+        int: average of repeats
+    """
+
+    count_ls = []
+    np.random.seed(1) # фиксируем сид для воспроизводимости
+    random_array = np.random.randint(1, range_random, size=(1000))
+    for number in random_array:
+        count_ls.append(func_predict(number))
+    score = int(np.mean(count_ls))
+
+    print(f'Ваш алгоритм угадывает число в среднем за: {score} попыток')
+    return(score)
+
+def score_game_recursive(func_predict) -> int:
+    """
+    The score_game function will take a function that randomly guesses a number between 1 and 99
+    (inclusive) and returns how many guesses it took to get the right answer.
+    The function will also take an integer parameter determining how many times the game is played.
+    The score_game function will return the average number of guesses it took to win each game.
 
 
+    Args:
+        func_predict: Pass the function that will be used to predict the number
+    
+    Returns:
+        int: average of repeats
+    """
     global count
     count_ls = []
     np.random.seed(1) # фиксируем сид для воспроизводимости
@@ -102,9 +129,12 @@ def score_game(func_predict) -> int:
     return(score)
 
 if __name__ == '__main__':
-    range_random = 500
+    range_random = 100
+    #print("Random prediction: ")
     #score_game(random_predict)    
-    #score_game(half_predict)
-    score_game(recursive_predict)
+    print("Hakf-divide prediction: ")
+    score_game(half_predict)
+    print("Half-divide using recursive prediction: ")
+    score_game_recursive(recursive_predict)
 #end   
 #end
