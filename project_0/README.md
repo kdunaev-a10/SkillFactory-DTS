@@ -1,31 +1,59 @@
-# Project guess number 
+# Проект 0. Угадай число
 
-## Title 
-[1. Project desciption](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_0/README.md#Project-desciption)
+## Оглавление  
+[1. Описание проекта](.README.md#Описание-проекта)  
+[2. Какой кейс решаем?](.README.md#Какой-кейс-решаем)  
+[3. Краткая информация о данных](.README.md#Краткая-информация-о-данных)  
+[4. Этапы работы над проектом](.README.md#Этапы-работы-над-проектом)  
+[5. Результат](.README.md#Результат)    
+[6. Выводы](.README.md#Выводы) 
 
-[2. What problems do we solve](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_0/README.md#What-problems-do-we-solve)
+### Описание проекта    
+Угадать загаданное компьютером число за минимальное число попыток.
 
-[3. Short info about data](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_0/README.md#Short-info-about-data)
+:arrow_up:[к оглавлению](_)
 
-[4. KPI](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_0/README.md#KPI)
 
-[5. Outcome](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_0/README.md#Outcome)
+### Какой кейс решаем?    
+Нужно написать программу, которая угадывает число за минимальное число попыток
 
-### Project desciption
-Guess the number using minimal number of attempts 
-:arrow_up:[to title](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_0/README.md#Title)
+**Условия соревнования:**  
+- Компьютер загадывает целое число от 0 до 100, и нам его нужно угадать. Под «угадать», подразумевается «написать программу, которая угадывает число».
+- Алгоритм учитывает информацию о том, больше ли случайное число или меньше нужного нам.
 
-### What problem do we solve
-Write programm to guess the number using minimal number of attempts 
+**Метрика качества**     
+Результаты оцениваются по среднему количеству попыток при 1000 повторений
 
-**short info about data**
-- computer choose a number between 1 and 100 and we need to write an algorithm which guess that number 
-- algorithm uses the infomation about "more" or "less"
+**Что практикуем**     
+Учимся писать хороший код на python
 
-**KPI**
-- The reults are estimated based on the average attepmts for 1000 repeats
 
-**Outcome**
-Learn to right the code on PYthon
+### Краткая информация о данных
+- данные генеряться автоматически
+  
+:arrow_up:[к оглавлению](.README.md#Оглавление)
 
-:arrow_up:[to title](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_0/README.md#Title)
+
+### Этапы работы над проектом  
+- Сначало попробовал просто рэндом
+- затем добавил "бинарный" алгоритм в виде цикла
+- затем переделал в рекурсивную функцию
+
+
+:arrow_up:[к оглавлению](.README.md#Оглавление)
+
+
+### Результаты:  
+- в среднем находит решение за 4 хода для чисел от 1 до 99
+
+:arrow_up:[к оглавлению](.README.md#Оглавление)
+
+
+### Выводы:  
+- бинарный алгоритм ускоряет решение задачи в десятки раз
+- рекурсивная функция позволяет сделать код более компактным
+
+:arrow_up:[к оглавлению](.README.md#Оглавление)
+
+
+Если информация по этому проекту покажется вам интересной или полезной, то я буду очень вам благодарен, если отметите репозиторий и профиль ⭐️⭐️⭐️- Константин
