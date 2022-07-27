@@ -188,3 +188,68 @@ print(step)
 print('##6.7')
 arr, step = np.linspace(-6, 21, 60, endpoint=False, retstep=True)
 print(step)
+
+
+###7
+arr = np.arange(8)
+print(arr)
+arr.shape = (2,4)
+print(arr)
+
+arr_new = arr.reshape((4,2), order='F')
+print('old',arr)
+print('new',arr_new)
+
+print(arr_new.shape)
+arr_tr = arr_new.transpose()
+print('transpose')
+print(arr_tr.shape)
+print(arr_tr)
+
+
+###slices
+arr = np.linspace(1, 2, 6)
+print(arr)
+print(arr[2])
+print(arr[2:4])
+print(arr[::-1])
+print(arr[-1])
+
+
+print("2d array")
+nd_array =  np.linspace(0, 6, 12, endpoint=False).reshape(3,4)
+print(nd_array)
+print(nd_array[1][2])
+print(nd_array[1,2])
+print(nd_array[1,:2])
+print(nd_array[:2,2])
+print(nd_array[:,2])
+print(nd_array[:2])
+
+###7.2
+print('###7.2')
+nd_array = np.array([
+    [-13586,  15203,  28445, -27117,  -1781, -17182, -18049],
+    [ 25936, -30968,  -1297,  -4593,   6451,  15790,   7181],
+    [ 13348,  28049,  28655,  -6012,  21762,  25397,   8225],
+    [ 13240,   7994,  32592,  20149,  13754,  11795,   -564],
+    [-21725,  -8681,  30305,  22260, -17918,  12578,  29943],
+    [-16841, -25392, -17278,  11740,   5916,    -47, -32037]
+])
+
+
+print('')
+print(nd_array[-1,-1])
+print('')
+print(nd_array[3])
+print('')
+print(nd_array[:,-2])
+print('')
+#arr_new = nd_array[1:4].reshape((4,2), order='F')
+print(nd_array[1:4,2:5])
+print('')
+print(nd_array[::-1,-1])
+
+
+###7.3
+print('###7.3')
