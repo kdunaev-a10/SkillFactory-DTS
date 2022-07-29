@@ -453,3 +453,133 @@ print()
 print('##INT')
 print(np.random.randint(6,12, size = (2,3)))
 print(np.random.randint(10, size = (2,3)))
+
+
+print()
+print()
+arr = np.arange(6)
+print(arr)
+np.random.shuffle(arr)
+print(arr)
+playlist = ["The Beatles", "Pink Floyd", "ACDC", "Deep Purple"]
+shuffled = np.random.permutation(playlist)
+print(playlist)
+print(shuffled)
+
+arr_shuffle = np.random.permutation(10)
+print(arr_shuffle)
+
+workers = ['Ivan', 'Nikita', 'Maria', 'John', 'Kate']
+choice = np.random.choice(workers, 2, replace = False)
+print(choice)
+
+choice = np.random.choice([1,2,3,4,5,6], size=10)
+print(choice)
+
+choice = np.random.choice(np.arange(1, 21), size=10, replace=False)
+print(choice)
+
+##
+print()
+print('##seed')
+np.random.seed(23)
+seed_random = np.random.randint(1,7, size=(3,4))
+print(seed_random)
+
+np.random.seed(100)
+print(np.random.randint(10, size=3))
+# [8 8 3]
+print(np.random.randint(10, size=3))
+# [7 7 0]
+print(np.random.randint(10, size=3))
+# [4 2 5]
+
+
+###9.6
+print('###9.6')
+np.random.seed(2021)
+
+# В simple сохранте случайное число в диапазоне от 0 до 1
+simple = np.random.rand()
+print(simple)
+
+# Сгенерируйте 120 чисел в диапазоне от -150 до 2021, сохраните их
+# в переменную randoms
+randoms = np.random.uniform(-150,2021,size=120)
+print(randoms)
+
+# Получите массив из случайных целых чисел от 1 до 100 (включительно)
+# из 3 строк и 2 столбцов. Сохраните результат в table
+table = np.random.randint(1,101,size=(3,2))
+print(table)
+
+# В переменную even сохраните четные числа от 2 до 16 (включительно)
+even = np.arange(2,17,2)
+print(even)
+# Перемешайте числа в even так, чтобы массив even изменился
+np.random.shuffle(even)
+print(even)
+
+# Получите из even 3 числа без повторений. Сохраните их в переменную select
+select = np.random.choice(even, 3, replace=False)
+print(select)
+
+# Получите переменную triplet, которая должна содержать перемешанные
+# значения из массива select (сам select измениться не должен)
+triplet = np.random.permutation(select)
+print(select)
+print(triplet)
+
+
+####10
+print('####10')
+print(np.iinfo(np.int16))
+
+
+####10.6
+print('####10.6')
+#Напишите функцию get_chess, которая принимает на вход длину стороны квадрата a и возвращает двумерный
+# массив формы (a, a), # заполненный 0 и 1 в шахматном порядке. В левом верхнем углу всегда должен быть ноль.
+def get_chess(a):
+    zeros_2d = np.zeros((a,a))
+    #print(zeros_2d)
+    zeros_2d[1::2,::2] = 1
+    zeros_2d[::2,1::2] = 1
+    print(zeros_2d)
+
+    # Напишите тело функции
+
+get_chess(1)
+# array([[0.]])
+get_chess(5)
+get_chess(4)
+# array([[0., 1., 0., 1.],
+#        [1., 0., 1., 0.],
+#        [0., 1., 0., 1.],
+#        [1., 0., 1., 0.]])
+
+####10.7
+print('####10.7')
+'''Вы разрабатываете приложение для прослушивания музыки. Конечно же, там будет доступна функция 
+перемешивания плейлиста. Пользователю может настолько понравиться перемешанная версия плейлиста, 
+что он захочет сохранить его копию. Однако вы не хотите хранить в памяти новую версию плейлиста, 
+а просто хотите сохранять тот seed, с которым он был сгенерирован.
+
+Для этого напишите функцию shuffle_seed(<array>),  которая принимает на вход массив из чисел, 
+генерирует случайное число для seed в диапазоне от 0 до 2**32 - 1 (включительно) и возвращает 
+кортеж: перемешанный с данным seed массив (исходный массив должен оставаться без изменений), 
+а также seed, с которым этот массив был получен.'''
+
+def shuffle_seed(array):
+    random_seed = np.random.randint(0,2**32,dtype=np.uint32)
+    np.random.seed(random_seed)
+    #print(random_seed)
+    triplet = np.random.permutation(array)
+    return triplet, random_seed
+    # Напишите тело функции
+
+array = [1, 2, 3, 4, 5]
+print(shuffle_seed(array))
+# (array([1, 3, 2, 4, 5]), 2332342819)
+print(shuffle_seed(array))
+# (array([4, 5, 2, 3, 1]), 4155165971)
