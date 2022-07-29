@@ -571,7 +571,7 @@ print('####10.7')
 а также seed, с которым этот массив был получен.'''
 
 def shuffle_seed(array):
-    random_seed = np.random.randint(0,2**32,dtype=np.uint32)
+    random_seed = np.random.randint(2**32,dtype=np.uint32)
     np.random.seed(random_seed)
     #print(random_seed)
     triplet = np.random.permutation(array)
@@ -583,3 +583,74 @@ print(shuffle_seed(array))
 # (array([1, 3, 2, 4, 5]), 2332342819)
 print(shuffle_seed(array))
 # (array([4, 5, 2, 3, 1]), 4155165971)
+
+
+####10.8
+print('####10.8')
+
+def min_max_dist1(*vectors):
+    dist = []
+    for i, v in enumerate(vectors):
+        for u in vectors[i+1:]:
+            print(i,v,u)
+            print(np.linalg.norm(v - u))
+            dist.append(np.linalg.norm(v - u))
+    return min(dist), max(dist)
+
+def min_max_dist(*vectors):
+    dists = list()
+    for i in range(len(vectors)):
+        for j in range(i + 1, len(vectors)):
+            dists.append(np.linalg.norm(vectors[i] - vectors[j]))
+    return (min(dists), max(dists))
+
+vec1 = np.array([1,2,3])
+vec2 = np.array([4,5,6])
+vec3 = np.array([7, 8, 9])
+
+print(min_max_dist(vec1, vec2, vec3))
+# (5.196152422706632, 10.392304845413264)
+
+####10.9
+print('####10.9')
+def any_normal(*vectors):
+    dists = list()
+    for i in range(len(vectors)):
+        for j in range(i + 1, len(vectors)):
+            dists.append(np.dot(vectors[i], vectors[j]))
+    return any([x == 0 for x in dists])
+
+
+vec1 = np.array([2, 1])
+vec2 = np.array([-1, 2])
+vec3 = np.array([3,4])
+print(any_normal(vec1, vec2, vec3))
+# True
+
+####10.10
+print('####10.10')
+def get_loto(num):
+    table = np.random.randint(1,101,size=(num,5,5))
+    print(table)
+    return table
+
+
+get_loto(3)
+
+####10.11
+print('####10.11')
+
+def get_unique_loto1(num):
+    select = np.random.choice(np.arange(1, 101), (num,5,5), replace=False)
+    return select
+
+def get_unique_loto(num):
+    sample = np.arange(1, 101)
+    res = list()
+    for i in range(num):
+        res.append(np.random.choice(sample, size=(5,5), replace=False))
+
+    return np.array(res)
+
+print(get_unique_loto(3))
+
