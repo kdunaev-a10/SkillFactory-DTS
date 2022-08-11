@@ -7,7 +7,7 @@ from collections import defaultdict
 from collections import deque
 from collections import OrderedDict
 from matplotlib.cbook import print_cycles
-import numpy as np
+
 import numpy as np
 
 a = np.int8(25)
@@ -653,4 +653,5 @@ def get_unique_loto(num):
     return np.array(res)
 
 print(get_unique_loto(3))
+
 

@@ -546,7 +546,8 @@ print(max_letter, compress_str[max_letter])
 print(compress_str.get(max_letter))
 
 print('#############')
-
+print('#############')
+print('#############')
 input_str = 'aaabbccccdaaaaa'
 #input_str = ''
 count_sym = 0
