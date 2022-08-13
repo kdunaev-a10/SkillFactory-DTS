@@ -1,5 +1,9 @@
+import pandas as pd
+print(pd.__version__)
+print(pd.__name__)
 
-import numpy as np
+import numpy as np #импорт библиотеки для мат. вычислений
+
 
 data = np.array([4, 9, -4, 3, -5])
 roots = np.sqrt(data)
