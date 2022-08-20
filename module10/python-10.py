@@ -27,3 +27,6 @@ print(np.min(mystery))
 print(np.mean(mystery))
 print(np.median(mystery))
 print(np.std(mystery))
+
+text = "25 Bloomburg St"
+print(text)
