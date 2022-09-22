@@ -543,8 +543,8 @@ print('####10.6')
 def get_chess(a):
     zeros_2d = np.zeros((a,a))
     #print(zeros_2d)
-    zeros_2d[1::2,::2] = 1
-    zeros_2d[::2,1::2] = 1
+    zeros_2d[1::2, ::2] = 1
+    zeros_2d[::2, 1::2] = 1
     print(zeros_2d)
 
     # Напишите тело функции
