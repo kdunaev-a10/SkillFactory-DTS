@@ -43,7 +43,7 @@
 работу с данными, оформление и визуализация отчетов с помощью средств python
 
 ### Результаты:  
-[Ноутбук с выполненными заданиями и выводами](Project_1_headHunter.ipynb)
-Даннные для ноутбука лежат на Гуглдиске https://drive.google.com/drive/folders/1OLnUK65-OdUrAr482baVWQldp1P9XNtp?usp=sharing
+- [Ноутбук с выполненными заданиями и выводами](Project_1_headHunter.ipynb)
+- Даннные для ноутбука лежат на Гуглдиске https://drive.google.com/drive/folders/1OLnUK65-OdUrAr482baVWQldp1P9XNtp?usp=sharing
 
 :arrow_up:[к оглавлению](README.md#Оглавление)
