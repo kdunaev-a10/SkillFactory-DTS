@@ -1,0 +1,15 @@
+SELECT 
+   movie_title as "Название фильма",
+   director as "Режиссёр", 
+   screenwriter as "Сценарист", 
+   actors as "Актёры",
+   length(movie_title), 
+   movie_title||'!'
+FROM sql.kinopoisk
+WHERE (rating between 8.0 and 8.5 
+   or year < 1990)
+   and overview IS NOT NULL
+   and movie_title NOT LIKE 'Т%'
+   and movie_title LIKE '____________'
+ORDER BY rating DESC
+LIMIT 7
