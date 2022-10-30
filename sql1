@@ -13,3 +13,120 @@ WHERE (rating between 8.0 and 8.5
    and movie_title LIKE '____________'
 ORDER BY rating DESC
 LIMIT 7
+
+SELECT *
+FROM sql.pokemon
+limit 5
+
+SELECT
+    COUNT(*) AS "pokemon_count",
+    AVG(speed) AS "avg_speed",
+    max(hp) AS "max_hp",
+    min(hp) AS "min_hp"
+FROM sql.pokemon
+WHERE type1 = 'Electric' and 
+(attack > 50 or defense > 50) and
+type2 is not NULL
+
+SELECT
+    type1 AS pokemon_type1,
+    COUNT(*) AS pokemon_count
+FROM sql.pokemon
+GROUP BY type1
+ORDER BY pokemon_count desc
+
+
+SELECT
+    type1 AS pokemon_type1,
+    type2 AS pokemon_type2,
+    COUNT(*) AS pokemon_count
+FROM sql.pokemon
+GROUP BY type1,type2
+ORDER BY type1,type2 nulls first
+
+
+SELECT
+    type1 AS primary_type,
+    count(distinct type2) as additional_types_count,
+    avg(hp) as avg_hp,
+    sum(attack) as attack_sum
+FROM sql.pokemon
+GROUP BY type1
+ORDER BY additional_types_count desc, type1
+
+
+SELECT
+  type1 as primary_type,
+  count(type1) as pokemon_count
+FROM sql.pokemon
+GROUP BY type1
+having avg(attack) > 90
+
+
+SELECT
+  type1 as primary_type,
+  type2 as additional_type,
+  avg(attack) as avg_attack,
+  max(hp) as max_hp
+FROM sql.pokemon
+GROUP BY type1, type2
+having avg(attack) > 100 and max(hp) < 80
+
+
+SELECT
+  type1 as primary_type,
+  type2 as additional_type,
+  avg(attack) as avg_attack,
+  max(hp) as max_hp
+FROM sql.pokemon
+GROUP BY type1, type2
+having avg(attack) > 100 and max(hp) < 80
+
+
+SELECT
+    type1 AS primary_type,
+    COUNT(type1) AS pokemon_count
+FROM sql.pokemon
+where name like 'S%'
+GROUP by type1
+having avg(defense) > 80
+order by COUNT(*)
+limit 3 desc
+
+
+
+SELECT
+    type1 AS pokemon_type1,
+    name,
+    defense
+FROM sql.pokemon
+where name like 'S%'
+order by type1
+
+SELECT
+    count(distinct attack)
+FROM sql.pokemon
+where type1 = 'Water' or type2 = 'Water'
+
+
+SELECT
+    type1,
+    type2,
+    AVG(hp) AS "avg_hp",
+    AVG(attack) as avg_attack,
+    AVG(defense) AS "avg_defense",
+    AVG(speed) AS "avg_speed"
+FROM sql.pokemon
+GROUP by type1, type2
+HAVING AVG(hp) + AVG(attack) + AVG(defense) + AVG(speed) > 400
+
+
+SELECT
+  type1,
+  count(*)
+FROM sql.pokemon
+WHERE (attack  between 50 and 100) or (defense between 50 and  100) 
+group by type1
+HAVING max(hp) <= 125
+order BY count(*) desc
+limit 1 offset 4
