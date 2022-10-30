@@ -196,8 +196,154 @@ limit 10
 
 
 SELECT 
-*
+    *
 FROM
     sql.teams,
     sql.matches
 WHERE away_team_api_id = api_id
+
+
+SELECT 
+*
+FROM
+    sql.teams as t
+join sql.matches as a on a.away_team_api_id = t.api_id
+join sql.matches as h on h.home_team_api_id = t.api_id
+limit 10
+ 
+ 
+SELECT 
+    h.long_name as "host",
+    m.home_team_goals,
+    m.away_team_goals,
+    a.long_name as "visitor"
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+limit 10
+
+
+SELECT 
+    m.id as "match_id",
+    h.id as "team_id"
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+ORDER by m.id
+limit 10
+
+
+SELECT 
+    m.id,
+    h.short_name as "home_short",
+    a.short_name as "away_short"
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+ORDER by m.id
+limit 10
+
+
+SELECT 
+*
+FROM
+    sql.teams as t
+join sql.matches as a on a.away_team_api_id = t.api_id
+join sql.matches as h on h.home_team_api_id = t.api_id
+limit 10
+
+
+
+
+
+SELECT 
+*
+FROM
+    sql.teams as t
+join sql.matches as m on m.away_team_api_id = t.api_id
+where long_name = 'Arsenal'
+
+limit 10
+
+
+
+
+SELECT 
+*
+FROM
+    sql.teams as t
+join sql.matches as m on m.home_team_api_id = t.api_id
+where 
+    t.short_name = 'GEN'
+    and
+    m.season = '2008/2009'
+limit 10
+
+
+SELECT 
+    t.id,
+    t.long_name,
+    sum(m.away_team_goals)+sum(m.home_team_goals) as "match_goals"
+FROM
+    sql.matches as m
+join sql.teams as t on m.away_team_api_id = t.api_id
+group by t.id
+ORDER by "match_goals" desc
+limit 10
+
+
+SELECT 
+    m.season,
+    t.id,
+    t.long_name,
+    sum(m.away_team_goals)+sum(m.home_team_goals) as "match_goals"
+FROM
+    sql.matches as m
+join sql.teams as t on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+group by m.season, t.id
+having sum(m.away_team_goals)+sum(m.home_team_goals) > 100
+ORDER by "match_goals" desc
+limit 10
+
+
+
+SELECT 
+    t.long_name,
+    m.home_team_goals,
+    m.away_team_goals
+FROM
+    sql.teams as t
+join sql.matches as m on m.home_team_api_id = t.api_id
+where 
+    t.short_name = 'GEN'
+limit 10
+
+
+SELECT 
+    m.id,
+    h.short_name as home_short,
+    a.short_name as away_short
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+where 
+    m.season = '2011/2012'
+    and
+    (h.long_name = 'Liverpool' or a.long_name = 'Liverpool')
+
+order by m.id
+limit 10
+
+
+SELECT 
+    t.long_name
+FROM
+    sql.matches as m
+join sql.teams as t on m.away_team_api_id = t.api_id
+group by t.id
+having count(m.id) >= 150
+ORDER by t.long_name
+limit 10
