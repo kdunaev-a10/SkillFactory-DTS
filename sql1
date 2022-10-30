@@ -132,7 +132,6 @@ order BY count(*) desc
 limit 1 offset 4
 
 
-
 -- SQL-3. Соединение таблиц
 SELECT 
   count(distinct long_name)
@@ -180,8 +179,7 @@ group by
 ORDER by season
 
 
-SELECT 
-    count(id)
+SELECT count(teams.id)
 FROM
     sql.teams,
     sql.matches
@@ -194,3 +192,12 @@ FROM
 where 
     away_team_api_id = api_id or home_team_api_id = api_id
 limit 10
+  
+
+
+SELECT 
+*
+FROM
+    sql.teams,
+    sql.matches
+WHERE away_team_api_id = api_id
