@@ -132,6 +132,8 @@ order BY count(*) desc
 limit 1 offset 4
 
 
+
+
 -- SQL-3. Соединение таблиц
 SELECT 
   count(distinct long_name)
@@ -347,3 +349,197 @@ group by t.id
 having count(m.id) >= 150
 ORDER by t.long_name
 limit 10
+
+
+
+SELECT 
+COUNT(DISTINCT t.api_id)
+FROM sql.teams as t
+inner join sql.matches as m on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+
+
+SELECT 
+  t.long_name,
+  m.id
+FROM sql.teams as t
+left join sql.matches as m on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+ORDER BY m.id DESC
+
+SELECT 
+  t.long_name,
+  m.id
+FROM sql.teams as t
+left join sql.matches as m on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+where m.id is null
+
+-- "left join" turns into "inner join" if we use a condition for the right table
+SELECT 
+  t.long_name,
+  m.id
+FROM sql.teams as t
+left join sql.matches as m on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+where
+   m.season = '2009/2010'
+   and
+   m.id is null
+   
+   
+   
+SELECT
+    t.long_name,
+    sum(m.away_team_goals) total_goals
+FROM   
+    sql.teams t
+LEFT JOIN sql.matches m ON t.api_id = m.away_team_api_id
+GROUP BY t.id
+ORDER BY 2 DESC
+
+
+SELECT
+    DISTINCT t.long_name
+FROM   
+    sql.matches m
+LEFT JOIN sql.teams t ON t.api_id = m.away_team_api_id
+ORDER by t.long_name
+limit 10
+
+
+SELECT
+    t.long_name,
+    count(m.id) matches_cnt
+FROM   
+    sql.teams t
+LEFT JOIN sql.matches m ON t.api_id = m.away_team_api_id or t.api_id = m.home_team_api_id
+GROUP BY t.id
+ORDER BY 2,1
+
+
+
+
+SELECT
+    t.long_name,
+    m.id
+FROM   
+    sql.teams t
+full JOIN sql.matches m ON t.api_id = m.home_team_api_id
+ORDER by m.id desc
+
+
+
+SELECT *
+FROM
+    sql.teams
+    CROSS JOIN sql.matches
+limit 5
+    
+-- the same as CROSS JOIN    
+SELECT *
+FROM
+    sql.teams
+    JOIN sql.matches ON TRUE
+    
+-- the same as CROSS JOIN    
+SELECT *
+FROM
+    sql.teams,
+    sql.matches
+
+SELECT 
+   DISTINCT
+   t1.long_name,
+   t2.long_name
+FROM 
+   sql.teams as t1
+cross JOIN sql.teams as t2
+limit 10
+
+
+SELECT 
+   DISTINCT
+   t1.short_name home_team,
+   t2.short_name away_team
+FROM 
+   sql.teams as t1
+cross JOIN sql.teams as t2
+ORDER by 1,2
+limit 10 
+
+
+SELECT
+    DISTINCT t.long_name
+FROM   
+    sql.teams t
+LEFT JOIN sql.matches m ON t.api_id = m.away_team_api_id
+where 
+    m.season = '2012/2013'
+ORDER BY 1
+
+
+SELECT
+    t.long_name,
+    COUNT(m.id) matches_cnt
+FROM sql.matches m
+    JOIN sql.teams t ON t.api_id = m.home_team_api_id
+WHERE t.long_name = 'Inter'
+GROUP BY t.id
+
+
+SELECT
+    t.long_name,
+    sum(m.away_team_goals) total_goals
+FROM   
+    sql.teams t
+JOIN sql.matches m ON t.api_id = m.away_team_api_id
+GROUP BY t.id
+having sum(m.away_team_goals) is not null
+ORDER BY 2 DESC
+limit 10
+
+
+SELECT
+    COUNT(m.id) matches_cnt
+FROM sql.matches m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+WHERE (h.long_name = 'Real Madrid CF' and a.long_name = 'FC Barcelona') or (a.long_name = 'Real Madrid CF' and h.long_name = 'FC Barcelona')
+
+
+
+SELECT 
+    count(m.id)
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+WHERE (h.long_name = 'Real Madrid CF' and a.long_name = 'FC Barcelona') or (a.long_name = 'Real Madrid CF' and h.long_name = 'FC Barcelona')
+
+
+
+SELECT
+    t.long_name,
+    m.season,
+    sum(m.home_team_goals) total_goals
+FROM
+    sql.teams t
+JOIN sql.matches m ON t.api_id = m.home_team_api_id
+GROUP by  t.id, m.season
+having sum(m.home_team_goals) < 10
+ORDER by 1,2
+
+
+SELECT 
+  a.CLASS, 
+  a.GRADE, 
+  a.STUDENT 
+FROM 
+  TABLE_A a 
+  INNER JOIN (
+    SELECT 
+      CLASS, 
+      MAX(GRADE) 
+    FROM 
+      TABLE_A 
+    GROUP BY 
+      CLASS
+  ) b ON a.CLASS = b.CLASS 
+  AND a.GRADE = b.GRADE
