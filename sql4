@@ -1,0 +1,182 @@
+-- SQL-4
+
+SELECT 
+    count(m.id)
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+WHERE (h.long_name = 'Real Madrid CF' and a.long_name = 'FC Barcelona') or (a.long_name = 'Real Madrid CF' and h.long_name = 'FC Barcelona')
+
+
+
+SELECT
+    t.long_name,
+    sum(m.home_team_goals) total_goals
+FROM
+    sql.teams t
+JOIN sql.matches m ON t.api_id = m.home_team_api_id
+GROUP by t.id
+having sum(m.home_team_goals) >= 0
+ORDER by 1,2
+
+SELECT
+    city_id
+FROM
+    sql.shipment as s
+where weight = 85581
+
+SELECT
+    city_name
+FROM
+    sql.city as c
+where city_id = 491
+
+
+SELECT
+*
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+limit 10
+
+
+SELECT
+    c.city_name,
+    weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+GROUP by s.weight, c.city_id
+ORDER by weight desc
+
+SELECT
+    c.city_name,
+    max(weight)
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+GROUP by s.weight, c.city_id
+ORDER by weight desc
+limit 10
+
+
+SELECT
+    c.city_name,
+    weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+GROUP by  c.city_id, s.weight
+having weight = (select max(weight) from sql.shipment)
+ORDER by weight desc
+
+
+select
+ count(distinct make)
+from sql.truck as t
+limit 10
+
+
+SELECT
+    d.first_name,
+    count(ship_id)
+FROM
+    sql.shipment as s
+JOIN sql.driver as d on d.driver_id = s.driver_id 
+GROUP by d.first_name, s.cust_id
+order by count(ship_id) desc
+limit 5
+
+
+SELECT
+max(ship_date),
+min(ship_date)
+FROM
+    sql.shipment as s
+limit 5
+
+SELECT
+   *
+FROM
+    sql.shipment as s
+where ship_date between '01-01-2017' and '12-31-2017'
+limit 5
+
+
+--2) С помощью функции EXTRACT извлечь год из даты, тогда результат будет в числовом формате и его можно сравнить со значением 2017
+--extract(YEAR from ship_date) = 2017
+-- Привести дату к типу строка и воспользоваться поиском по шаблону
+--ship_date::text like '2017%'
+
+SELECT
+   ship_date::text
+FROM
+    sql.shipment as s
+where ship_date::text like '%2017%' 
+limit 5
+
+SELECT
+   *
+FROM
+    sql.shipment as s
+where ship_date::text like '%2017%' 
+limit 5
+
+SELECT
+   *
+FROM
+    sql.shipment as s
+where EXTRACT(YEAR from ship_date) = 2017
+limit 5
+
+SELECT
+    c.cust_name,
+    count(ship_id)
+FROM
+    sql.shipment as s
+JOIN sql.customer as c on c.cust_id = s.cust_id 
+where ship_date between '01-01-2017' and '12-31-2017'
+GROUP by s.cust_id, c.cust_name
+order by count(ship_id) desc
+limit 5
+
+
+
+SELECT 
+         book_name object_name, 'книга' object_description 
+FROM 
+         public.books
+
+UNION ALL
+
+SELECT 
+         movie_title, 'фильм' 
+FROM 
+         sql.kinopoisk
+limit 5
+
+
+select 'cat' pet, 1 countity
+
+
+
+(SELECT 
+         book_name object_name, 'книга' object_description 
+FROM 
+         public.books
+limit 5)
+
+UNION ALL
+
+(SELECT 
+         movie_title, 'фильм' 
+FROM 
+         sql.kinopoisk
+limit 5)
+
+
+SELECT
+         c.city_id object_name, 'id города' object_type
+FROM 
+         sql.city c
