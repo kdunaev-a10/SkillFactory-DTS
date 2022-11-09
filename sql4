@@ -596,3 +596,184 @@ FROM
     sql.truck t
 ORDER by 1
 
+
+
+SELECT
+    s.city_id,
+    s.weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+
+ORDER by weight desc
+
+
+
+-- SQL5
+SELECT NOW(), CURRENT_TIMESTAMP
+
+show timezone
+
+SELECT * from pg_timezone_names
+
+select now() at time zone 'Europe/Moscow'
+
+
+select now() at time zone  'America/Los_Angeles'
+select now()::date
+
+select current_date, now()::date
+
+select '2018-12-31 21:00:00+00'::timestamp with time zone ts
+
+with x as 
+(select '2018-12-31 21:00:00+00'::timestamp with time zone ts
+ )
+select 
+  (x.ts at time zone 'Europe/Moscow')::date as dt_msk,
+  x.ts::date as dt_utc 
+from x
+
+SELECT EXTRACT(DAY FROM TIMESTAMP '2001-02-16 20:38:40');
+
+SELECT EXTRACT(EPOCH FROM TIMESTAMP '2001-02-16 20:38:40');
+
+SELECT EXTRACT(DAY FROM INTERVAL '40 days 1 minute');
+
+SELECT EXTRACT(MONTH FROM TIMESTAMP '2001-02-16 20:38:40');
+
+--Поле года. Учтите, что года 0 не было, и это следует иметь в виду, вычитая из годов нашей эры годы до нашей эры.
+SELECT EXTRACT(YEAR FROM TIMESTAMP '2001-02-16 20:38:40');
+
+
+--Год по недельному календарю ISO 8601, в который попадает дата (не применимо к интервалам).
+--Год по недельному календарю ISO начинается с понедельника недели, в которой оказывается 4 января, так что в 
+--начале января или в конце декабря год по ISO может отличаться от года по григорианскому календарю. Подробнее об этом рассказывается в описании поля week.
+
+SELECT EXTRACT(ISOYEAR FROM DATE '2006-01-01');
+
+SELECT EXTRACT(ISOYEAR FROM DATE '2006-01-02');
+
+--Номер недели в году по недельному календарю ISO 8601. По определению, недели ISO 8601 начинаются с понедельника, а первая неделя года включает 4 января этого года. 
+--Другими словами, первый четверг года всегда оказывается в первой неделе этого года.
+--В системе нумерации недель ISO первые числа января могут относиться к 52-й или 53-й неделе предыдущего года, а последние числа декабря — к первой неделе следующего года.
+
+SELECT EXTRACT(WEEK FROM TIMESTAMP '2001-02-16 20:38:40');
+
+
+--Века с номером 0 не было; считается, что 1 наступил после -1.
+SELECT EXTRACT(CENTURY FROM TIMESTAMP '2000-12-16 12:21:13');
+
+SELECT EXTRACT(CENTURY FROM TIMESTAMP '2001-02-16 20:38:40');
+
+
+SELECT 
+    EXTRACT(YEAR FROM s.ship_date) year_n,
+    EXTRACT(MONTH FROM s.ship_date) month_n,
+    count(s.ship_id) qty
+FROM 
+    sql.shipment s
+GROUP by 1,2
+ORDER by 1,2
+
+
+select 
+    to_char(now(),'"Hello! Today is" DAY yyyy-Mon-dd'), 
+    to_char(now(),'"Hello! Today is" DAY yyyy-MM-dd'),
+    to_char(now(),'"Hello! Today is" HH24:mi dd-MM-yyyy')
+
+
+SELECT to_char(now() at time zone 'Europe/Moscow', '"Точное время" HH24 "часов" MI "минут" SS "секунд"') as msg
+
+select date_trunc('minute',now())
+
+SELECT 
+    to_char(date_trunc('quarter', s.ship_date), 'yyyy-MM-DD') q,
+    sum(s.weight) total_weight 
+FROM 
+    sql.shipment s
+GROUP by 1
+ORDER by 1
+
+
+SELECT 
+    date_trunc('quarter', s.ship_date)::date q,
+    sum(s.weight) total_weight 
+FROM 
+    sql.shipment s
+GROUP by 1
+ORDER by 1
+
+
+select '2019-01-01'::date + 10
+
+select '2019-02-10'::date - '2017-03-01'::date
+
+
+SELECT 
+    c.city_name city_name,
+    max(s.ship_date) - min(s.ship_date) days_active 
+from 
+    sql.city as c
+    JOIN sql.shipment as s on c.city_id = s.city_id
+GROUP by 1
+ORDER by 1
+
+--String operation
+
+select 'select * from '||t.table_schema||'.'||t.table_name||';' query
+from information_schema.tables t
+where table_schema = 'shipping'
+
+
+select 
+    'Ваш заказ доставит водитель '  || d.first_name ||'-'||d.last_name || '. Его контактный номер: ' || coalesce(d.phone,'-') as msg
+from
+    sql.driver as d
+    
+    
+SELECT 
+        c.cust_id,
+        lower(cust_name) cust_name
+FROM shipping.customer c
+JOIN shipping.shipment s ON c.cust_id = s.cust_id
+GROUP BY 1,2
+HAVING COUNT(distinct s.ship_id)>10
+ORDER BY 1
+
+
+select replace('малако','а','о')
+
+
+select
+    replace(lower(c.city_name), ' ', '_') || '__' ||replace(lower(c.state), ' ', '_')
+FROM
+    sql.city c
+order by 1
+
+select
+    lower(replace(c.state || '__' || c.city_name, ' ', '_'))
+FROM
+    sql.city c
+order by 1
+
+
+
+SELECT
+    LEFT(state,4) code, 
+    COUNT(distinct state) qty
+FROM shipping.city
+GROUP BY 1
+HAVING COUNT(distinct state)>1
+
+
+
+SELECT format(
+  $$%s is located in %s. There's %s people living there. Its area is %s$$,
+  c.city_name,
+  c.state,
+  c.population,
+  c.area
+) str
+FROM shipping.city c
+ORDER BY city_name
