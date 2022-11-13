@@ -71,3 +71,5 @@ report.add_deal("SkyEng", 250_000)
 report.add_deal("PepsiCo", 20_000)  
   
 report.print_report()  
+
+print(round(123.89))
