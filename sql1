@@ -1,0 +1,545 @@
+SELECT 
+   movie_title as "Название фильма",
+   director as "Режиссёр", 
+   screenwriter as "Сценарист", 
+   actors as "Актёры",
+   length(movie_title), 
+   movie_title||'!'
+FROM sql.kinopoisk
+WHERE (rating between 8.0 and 8.5 
+   or year < 1990)
+   and overview IS NOT NULL
+   and movie_title NOT LIKE 'Т%'
+   and movie_title LIKE '____________'
+ORDER BY rating DESC
+LIMIT 7
+
+SELECT *
+FROM sql.pokemon
+limit 5
+
+SELECT
+    COUNT(*) AS "pokemon_count",
+    AVG(speed) AS "avg_speed",
+    max(hp) AS "max_hp",
+    min(hp) AS "min_hp"
+FROM sql.pokemon
+WHERE type1 = 'Electric' and 
+(attack > 50 or defense > 50) and
+type2 is not NULL
+
+SELECT
+    type1 AS pokemon_type1,
+    COUNT(*) AS pokemon_count
+FROM sql.pokemon
+GROUP BY type1
+ORDER BY pokemon_count desc
+
+
+SELECT
+    type1 AS pokemon_type1,
+    type2 AS pokemon_type2,
+    COUNT(*) AS pokemon_count
+FROM sql.pokemon
+GROUP BY type1,type2
+ORDER BY type1,type2 nulls first
+
+
+SELECT
+    type1 AS primary_type,
+    count(distinct type2) as additional_types_count,
+    avg(hp) as avg_hp,
+    sum(attack) as attack_sum
+FROM sql.pokemon
+GROUP BY type1
+ORDER BY additional_types_count desc, type1
+
+
+SELECT
+  type1 as primary_type,
+  count(type1) as pokemon_count
+FROM sql.pokemon
+GROUP BY type1
+having avg(attack) > 90
+
+
+SELECT
+  type1 as primary_type,
+  type2 as additional_type,
+  avg(attack) as avg_attack,
+  max(hp) as max_hp
+FROM sql.pokemon
+GROUP BY type1, type2
+having avg(attack) > 100 and max(hp) < 80
+
+
+SELECT
+  type1 as primary_type,
+  type2 as additional_type,
+  avg(attack) as avg_attack,
+  max(hp) as max_hp
+FROM sql.pokemon
+GROUP BY type1, type2
+having avg(attack) > 100 and max(hp) < 80
+
+
+SELECT
+    type1 AS primary_type,
+    COUNT(type1) AS pokemon_count
+FROM sql.pokemon
+where name like 'S%'
+GROUP by type1
+having avg(defense) > 80
+order by COUNT(*)
+limit 3 desc
+
+
+
+SELECT
+    type1 AS pokemon_type1,
+    name,
+    defense
+FROM sql.pokemon
+where name like 'S%'
+order by type1
+
+SELECT
+    count(distinct attack)
+FROM sql.pokemon
+where type1 = 'Water' or type2 = 'Water'
+
+
+SELECT
+    type1,
+    type2,
+    AVG(hp) AS "avg_hp",
+    AVG(attack) as avg_attack,
+    AVG(defense) AS "avg_defense",
+    AVG(speed) AS "avg_speed"
+FROM sql.pokemon
+GROUP by type1, type2
+HAVING AVG(hp) + AVG(attack) + AVG(defense) + AVG(speed) > 400
+
+
+SELECT
+  type1,
+  count(*)
+FROM sql.pokemon
+WHERE (attack  between 50 and 100) or (defense between 50 and  100) 
+group by type1
+HAVING max(hp) <= 125
+order BY count(*) desc
+limit 1 offset 4
+
+
+
+
+-- SQL-3. Соединение таблиц
+SELECT 
+  count(distinct long_name)
+FROM sql.teams
+
+SELECT 
+  count(short_name)
+FROM 
+  sql.teams
+where short_name = 'VAL'
+  
+
+
+SELECT *
+FROM sql.matches
+limit 5
+
+SELECT 
+  count(id)
+FROM 
+  sql.matches
+  
+SELECT 
+  count(id)
+FROM 
+  sql.teams
+  
+SELECT 
+  max(season),
+  min(season)
+FROM 
+  sql.matches
+
+
+-- Введите свое решение ниже
+-- Задание 1.2
+SELECT 
+  season,
+  sum(home_team_goals) as total_home_goals,
+  sum(away_team_goals) as total_away_goals
+FROM 
+  sql.matches
+group by 
+  season
+ORDER by season
+
+
+SELECT count(teams.id)
+FROM
+    sql.teams,
+    sql.matches
+
+
+SELECT *
+FROM
+    sql.teams,
+    sql.matches
+where 
+    away_team_api_id = api_id or home_team_api_id = api_id
+limit 10
+  
+
+
+SELECT 
+    *
+FROM
+    sql.teams,
+    sql.matches
+WHERE away_team_api_id = api_id
+
+
+SELECT 
+*
+FROM
+    sql.teams as t
+join sql.matches as a on a.away_team_api_id = t.api_id
+join sql.matches as h on h.home_team_api_id = t.api_id
+limit 10
+ 
+ 
+SELECT 
+    h.long_name as "host",
+    m.home_team_goals,
+    m.away_team_goals,
+    a.long_name as "visitor"
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+limit 10
+
+
+SELECT 
+    m.id as "match_id",
+    h.id as "team_id"
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+ORDER by m.id
+limit 10
+
+
+SELECT 
+    m.id,
+    h.short_name as "home_short",
+    a.short_name as "away_short"
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+ORDER by m.id
+limit 10
+
+
+SELECT 
+*
+FROM
+    sql.teams as t
+join sql.matches as a on a.away_team_api_id = t.api_id
+join sql.matches as h on h.home_team_api_id = t.api_id
+limit 10
+
+
+
+
+
+SELECT 
+*
+FROM
+    sql.teams as t
+join sql.matches as m on m.away_team_api_id = t.api_id
+where long_name = 'Arsenal'
+
+limit 10
+
+
+
+
+SELECT 
+*
+FROM
+    sql.teams as t
+join sql.matches as m on m.home_team_api_id = t.api_id
+where 
+    t.short_name = 'GEN'
+    and
+    m.season = '2008/2009'
+limit 10
+
+
+SELECT 
+    t.id,
+    t.long_name,
+    sum(m.away_team_goals)+sum(m.home_team_goals) as "match_goals"
+FROM
+    sql.matches as m
+join sql.teams as t on m.away_team_api_id = t.api_id
+group by t.id
+ORDER by "match_goals" desc
+limit 10
+
+
+SELECT 
+    m.season,
+    t.id,
+    t.long_name,
+    sum(m.away_team_goals)+sum(m.home_team_goals) as "match_goals"
+FROM
+    sql.matches as m
+join sql.teams as t on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+group by m.season, t.id
+having sum(m.away_team_goals)+sum(m.home_team_goals) > 100
+ORDER by "match_goals" desc
+limit 10
+
+
+
+SELECT 
+    t.long_name,
+    m.home_team_goals,
+    m.away_team_goals
+FROM
+    sql.teams as t
+join sql.matches as m on m.home_team_api_id = t.api_id
+where 
+    t.short_name = 'GEN'
+limit 10
+
+
+SELECT 
+    m.id,
+    h.short_name as home_short,
+    a.short_name as away_short
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+where 
+    m.season = '2011/2012'
+    and
+    (h.long_name = 'Liverpool' or a.long_name = 'Liverpool')
+
+order by m.id
+limit 10
+
+
+SELECT 
+    t.long_name
+FROM
+    sql.matches as m
+join sql.teams as t on m.away_team_api_id = t.api_id
+group by t.id
+having count(m.id) >= 150
+ORDER by t.long_name
+limit 10
+
+
+
+SELECT 
+COUNT(DISTINCT t.api_id)
+FROM sql.teams as t
+inner join sql.matches as m on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+
+
+SELECT 
+  t.long_name,
+  m.id
+FROM sql.teams as t
+left join sql.matches as m on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+ORDER BY m.id DESC
+
+SELECT 
+  t.long_name,
+  m.id
+FROM sql.teams as t
+left join sql.matches as m on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+where m.id is null
+
+-- "left join" turns into "inner join" if we use a condition for the right table
+SELECT 
+  t.long_name,
+  m.id
+FROM sql.teams as t
+left join sql.matches as m on m.home_team_api_id = t.api_id or m.away_team_api_id = t.api_id
+where
+   m.season = '2009/2010'
+   and
+   m.id is null
+   
+   
+   
+SELECT
+    t.long_name,
+    sum(m.away_team_goals) total_goals
+FROM   
+    sql.teams t
+LEFT JOIN sql.matches m ON t.api_id = m.away_team_api_id
+GROUP BY t.id
+ORDER BY 2 DESC
+
+
+SELECT
+    DISTINCT t.long_name
+FROM   
+    sql.matches m
+LEFT JOIN sql.teams t ON t.api_id = m.away_team_api_id
+ORDER by t.long_name
+limit 10
+
+
+SELECT
+    t.long_name,
+    count(m.id) matches_cnt
+FROM   
+    sql.teams t
+LEFT JOIN sql.matches m ON t.api_id = m.away_team_api_id or t.api_id = m.home_team_api_id
+GROUP BY t.id
+ORDER BY 2,1
+
+
+
+
+SELECT
+    t.long_name,
+    m.id
+FROM   
+    sql.teams t
+full JOIN sql.matches m ON t.api_id = m.home_team_api_id
+ORDER by m.id desc
+
+
+
+SELECT *
+FROM
+    sql.teams
+    CROSS JOIN sql.matches
+limit 5
+    
+-- the same as CROSS JOIN    
+SELECT *
+FROM
+    sql.teams
+    JOIN sql.matches ON TRUE
+    
+-- the same as CROSS JOIN    
+SELECT *
+FROM
+    sql.teams,
+    sql.matches
+
+SELECT 
+   DISTINCT
+   t1.long_name,
+   t2.long_name
+FROM 
+   sql.teams as t1
+cross JOIN sql.teams as t2
+limit 10
+
+
+SELECT 
+   DISTINCT
+   t1.short_name home_team,
+   t2.short_name away_team
+FROM 
+   sql.teams as t1
+cross JOIN sql.teams as t2
+ORDER by 1,2
+limit 10 
+
+
+SELECT
+    DISTINCT t.long_name
+FROM   
+    sql.teams t
+LEFT JOIN sql.matches m ON t.api_id = m.away_team_api_id
+where 
+    m.season = '2012/2013'
+ORDER BY 1
+
+
+SELECT
+    t.long_name,
+    COUNT(m.id) matches_cnt
+FROM sql.matches m
+    JOIN sql.teams t ON t.api_id = m.home_team_api_id
+WHERE t.long_name = 'Inter'
+GROUP BY t.id
+
+
+SELECT
+    t.long_name,
+    sum(m.away_team_goals) total_goals
+FROM   
+    sql.teams t
+JOIN sql.matches m ON t.api_id = m.away_team_api_id
+GROUP BY t.id
+having sum(m.away_team_goals) is not null
+ORDER BY 2 DESC
+limit 10
+
+
+SELECT
+    COUNT(m.id) matches_cnt
+FROM sql.matches m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+WHERE (h.long_name = 'Real Madrid CF' and a.long_name = 'FC Barcelona') or (a.long_name = 'Real Madrid CF' and h.long_name = 'FC Barcelona')
+
+
+
+SELECT 
+    count(m.id)
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+WHERE (h.long_name = 'Real Madrid CF' and a.long_name = 'FC Barcelona') or (a.long_name = 'Real Madrid CF' and h.long_name = 'FC Barcelona')
+
+
+
+SELECT
+    t.long_name,
+    m.season,
+    sum(m.home_team_goals) total_goals
+FROM
+    sql.teams t
+JOIN sql.matches m ON t.api_id = m.home_team_api_id
+GROUP by  t.id, m.season
+having sum(m.home_team_goals) < 10
+ORDER by 1,2
+
+
+SELECT 
+  a.CLASS, 
+  a.GRADE, 
+  a.STUDENT 
+FROM 
+  TABLE_A a 
+  INNER JOIN (
+    SELECT 
+      CLASS, 
+      MAX(GRADE) 
+    FROM 
+      TABLE_A 
+    GROUP BY 
+      CLASS
+  ) b ON a.CLASS = b.CLASS 
+  AND a.GRADE = b.GRADE
