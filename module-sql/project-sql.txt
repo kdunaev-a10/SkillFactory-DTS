@@ -1,0 +1,334 @@
+-- SQL Project_2
+
+
+select 
+    *
+FROM 
+    public.vacancies as v
+JOIN public.areas as a on v.area_id=a.id
+limit 10
+
+
+SELECT 
+    count(v.id) as cnt,
+    a.name as area
+FROM 
+    public.vacancies as v
+JOIN public.areas as a on v.area_id=a.id
+GROUP by a.id
+ORDER by 1 DESC
+limit 10
+
+
+SELECT 
+    count(*)
+FROM 
+    public.vacancies as v
+WHERE
+    salary_to IS NOT NULL 
+    or 
+    salary_from is NOT NULL
+limit 10
+    
+SELECT 
+    round(avg(v.salary_from),1),
+    round(avg(v.salary_to))
+FROM 
+    public.vacancies as v
+WHERE
+    salary_to IS NOT NULL 
+    or 
+    salary_from is NOT NULL
+
+
+
+
+SELECT
+    distinct
+    (v1.schedule,
+    v2.employment),
+    count(v1.id)
+FROM 
+    public.vacancies as v1
+JOIN public.vacancies as v2 on v1.id=v2.id
+GROUP by v1.schedule, v2.employment
+ORDER by 2 desc
+
+SELECT
+    distinct
+    (v2.schedule,
+    v1.employment),
+    count(v2.id)
+FROM 
+    public.vacancies as v1
+JOIN public.vacancies as v2 on v1.id=v2.id
+GROUP by v2.schedule, v1.employment
+ORDER by 2 desc
+
+
+SELECT
+    distinct
+    (v.schedule,
+    v.employment),
+    count(v.id)
+FROM 
+    public.vacancies as v
+GROUP by v.schedule, v.employment
+ORDER by 2 desc
+
+
+SELECT 
+    v.experience,
+    count(v.id)
+FROM 
+    public.vacancies as v
+WHERE v.experience IS NOT NULL
+GROUP by v.experience
+ORDER BY 2
+
+
+SELECT
+    a.name as area,
+    count(e.id) as employers_cnt,
+    count(v.id) as vacancies_cnt
+FROM 
+    public.areas as a
+LEFT JOIN public.vacancies as v on v.area_id=a.id
+LEFT JOIN public.employers as e on e.area=a.id
+WHERE v.id IS NULL
+GROUP by a.id
+ORDER by 2 desc
+
+
+SELECT
+    a.name as area,
+    count(distinct e.id) as employers_cnt,
+    count(distinct v.id) as vacancies_cnt
+FROM 
+    public.areas as a
+JOIN public.vacancies as v on v.area_id=a.id
+JOIN public.employers as e on e.area=a.id
+GROUP by a.id
+ORDER by 2 desc
+
+
+SELECT
+    e.name as employer,
+    count(distinct v.area_id) as area_cnt
+FROM 
+    public.vacancies as v
+JOIN public.employers as e on v.employer_id=e.id
+GROUP by e.id
+ORDER by 2 desc
+
+
+SELECT
+    *
+FROM 
+    public.employers as e
+JOIN public.employers_industries as ei on ei.employer_id=e.id
+LEFT JOIN public.industries as i on ei.industry_id=i.id
+
+SELECT
+    count(e.id)
+FROM 
+    public.employers as e
+LEFT JOIN public.employers_industries as ei on ei.employer_id=e.id
+WHERE 
+    ei.industry_id IS NULL
+    
+SELECT
+    e.name
+FROM 
+    public.employers_industries as ei
+JOIN public.employers as e on ei.employer_id=e.id
+GROUP by e.id
+having count(ei.industry_id) = 4
+ORDER by 1 limit 1 offset 2
+
+SELECT
+    e.name,
+    count(ei.industry_id)
+FROM 
+    public.employers as e
+JOIN public.employers_industries as ei on ei.employer_id=e.id
+GROUP by e.id
+ORDER by 2 DESC, 1
+
+
+SELECT
+    count(e.id)
+FROM 
+    public.employers as e
+JOIN public.employers_industries as ei on ei.employer_id=e.id
+JOIN public.industries as i on ei.industry_id=i.id
+WHERE i.name='Разработка программного обеспечения'
+
+
+(
+SELECT
+    a.name,
+    count(v.id)
+FROM 
+    public.areas as a
+JOIN public.vacancies as v on v.area_id=a.id
+JOIN public.employers as e on e.id=v.employer_id
+WHERE 
+    a.name IN ('Москва', 'Санкт-Петербург')
+    and
+    e.name='Яндекс'
+GROUP BY a.id 
+ORDER BY 2 DESC
+)
+UNION aLL
+(SELECT 
+    'Total',
+    count(v.id)
+FROM 
+    public.areas as a
+JOIN public.vacancies as v on v.area_id=a.id
+JOIN public.employers as e on e.id=v.employer_id
+WHERE 
+    a.name IN ('Москва', 'Санкт-Петербург')
+    and
+    e.name='Яндекс'
+)
+
+
+SELECT
+    count(v.id)
+FROM
+    public.vacancies as v
+WHERE 
+    LOWER(v.name) LIKE '%data%'
+    or 
+    LOWER(v.name) LIKE '%данн%'
+
+
+SELECT 
+    count(*)
+FROM 
+    public.vacancies
+WHERE
+    LOWER(name) like '%data scientist%' or 
+    LOWER(name) like '%data science%' or
+    LOWER(name) like '%исследователь данных%' or
+    LOWER(name) like '%machine learning%' or
+    LOWER(name) like '%машинн%обучен%' or
+    (UPPER(name) like '%ML%' and UPPER(name) not like '%HTML%')
+
+--6.2
+SELECT 
+    count(*)
+FROM 
+    public.vacancies
+WHERE
+    (LOWER(name) like '%data scientist%' or 
+    LOWER(name) like '%data science%' or
+    LOWER(name) like '%исследователь данных%' or
+    LOWER(name) like '%machine learning%' or
+    LOWER(name) like '%машинн%обучен%' or
+    (UPPER(name) like '%ML%' and UPPER(name) not like '%HTML%'))
+    and
+    (LOWER(name) like '%junior%'
+    or
+    experience='Нет опыта'
+    or
+    employment='Стажировка'
+    )
+
+--6.3
+SELECT 
+    count(*)
+FROM 
+    public.vacancies
+WHERE
+    (LOWER(name) like '%data scientist%' or 
+    LOWER(name) like '%data science%' or
+    LOWER(name) like '%исследователь данных%' or
+    LOWER(name) like '%machine learning%' or
+    LOWER(name) like '%машинн%обучен%' or
+    (name like '%ML%' and UPPER(name) not like '%HTML%'))
+    and
+    (UPPER(key_skills) like '%SQL%'
+    or
+    LOWER(key_skills) like '%postgres%'
+    )
+    
+--6.4.
+SELECT 
+    count(*)
+FROM 
+    public.vacancies
+WHERE
+    (LOWER(name) like '%data scientist%' or 
+    LOWER(name) like '%data science%' or
+    LOWER(name) like '%исследователь данных%' or
+    LOWER(name) like '%machine learning%' or
+    LOWER(name) like '%машинн%обучен%' or
+    (name like '%ML%' and UPPER(name) not like '%HTML%'))
+    and
+    LOWER(key_skills) like '%python%'
+
+--6.5
+-- ROUND(AVG(LENGTH(key_skills) - LENGTH(REPLACE(key_skills, CHR(9), ''))), 2)
+
+SELECT 
+    (LENGTH(key_skills) - LENGTH(REPLACE(key_skills, CHR(9), '')) + 1)::text
+FROM 
+    public.vacancies
+WHERE
+    ID=54824572
+UNION ALL
+SELECT 
+    key_skills
+FROM 
+    public.vacancies
+WHERE
+    ID=54824572
+
+
+SELECT 
+    (ROUND(AVG(LENGTH(key_skills) - LENGTH(REPLACE(key_skills, CHR(9), '')) + 1),2))::text
+FROM 
+    public.vacancies
+WHERE
+    key_skills IS NOT NULL
+    
+
+SELECT 
+  REGEXP_REPLACE(key_skills, '[\t]{1,}', '')
+FROM 
+    public.vacancies
+WHERE
+    ID=66120847
+    
+SELECT 
+    key_skills
+FROM 
+    public.vacancies
+WHERE
+    ID=66120847
+
+SELECT 
+    *
+FROM 
+    public.vacancies
+WHERE
+    (LENGTH(key_skills) - LENGTH(REPLACE(key_skills, CHR(9), '')) + 1) = 2
+
+
+SELECT 
+    (ROUND(AVG(LENGTH(key_skills) - LENGTH(REPLACE(key_skills, CHR(9), '')) + 1),2))
+FROM 
+    public.vacancies
+WHERE
+    (LOWER(name) like '%data scientist%' or 
+    LOWER(name) like '%data science%' or
+    LOWER(name) like '%исследователь данных%' or
+    LOWER(name) like '%machine learning%' or
+    LOWER(name) like '%машинн%обучен%' or
+    (name like '%ML%' and UPPER(name) not like '%HTML%'))
+    AND 
+    key_skills IS NOT NULL
+    
