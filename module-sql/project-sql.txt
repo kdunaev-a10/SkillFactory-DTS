@@ -332,3 +332,56 @@ WHERE
     AND 
     key_skills IS NOT NULL
     
+--6.6
+SELECT 
+    *
+FROM 
+    public.vacancies
+WHERE
+    ID=55367723
+    --ID=66108173
+
+SELECT 
+     (coalesce(salary_from, salary_to) + coalesce(salary_to, salary_from))/2
+FROM 
+    public.vacancies
+WHERE
+    --ID=55367723
+    ID=66108173
+    
+SELECT 
+    ROUND(AVG((coalesce(salary_from, salary_to) + coalesce(salary_to, salary_from))/2),0)
+FROM 
+    public.vacancies
+WHERE
+    (LOWER(name) like '%data scientist%' or 
+    LOWER(name) like '%data science%' or
+    LOWER(name) like '%исследователь данных%' or
+    LOWER(name) like '%machine learning%' or
+    LOWER(name) like '%машинн%обучен%' or
+    (name like '%ML%' and UPPER(name) not like '%HTML%'))
+    AND
+    experience='От 3 до 6 лет'
+    AND 
+    (salary_to IS NOT NULL 
+    or 
+    salary_from is NOT NULL)
+
+SELECT
+    distinct (experience),
+    ROUND(AVG((coalesce(salary_from, salary_to) + coalesce(salary_to, salary_from))/2),0)
+FROM 
+    public.vacancies
+WHERE
+    (LOWER(name) like '%data scientist%' or 
+    LOWER(name) like '%data science%' or
+    LOWER(name) like '%исследователь данных%' or
+    LOWER(name) like '%machine learning%' or
+    LOWER(name) like '%машинн%обучен%' or
+    (name like '%ML%' and UPPER(name) not like '%HTML%'))
+    AND 
+    (salary_to IS NOT NULL 
+    or 
+    salary_from is NOT NULL)
+GROUP BY experience
+
