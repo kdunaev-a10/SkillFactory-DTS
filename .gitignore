@@ -7,3 +7,4 @@ dst-3.0_16_1_hh_database.csv
 SkillFactory-DTS
 module-EDA/EDA-1/data/wine.csv
 module-EDA/EDA-1/data/wine_cleared.csv
+module-EDA/EDA-2/data/wine_cleared.csv
