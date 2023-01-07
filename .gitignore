@@ -12,3 +12,6 @@ module-EDA/EDA-2/data/wine_cleared_orig.csv
 module-EDA/EDA-2/data/model.csv
 module-EDA/EDA-3/data/wine_cleared.csv
 project_1/data/dst-3.0_16_1_hh_database.csv.zip
+module-EDA/EDA-5/data/ab_data.csv
+module-EDA/EDA-5/data/ab_test-redesign_sample_a.csv
+module-EDA/EDA-5/data/ab_test-redesign_sample_b.csv
