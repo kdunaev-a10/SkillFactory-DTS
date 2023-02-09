@@ -10,6 +10,6 @@ from [SkillFactory-DTS](https://github.com/kdunaev-a10/SkillFactory-DTS)
 
 * [project 2. HeadHunter dataset analysis](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_2) 
 
-* [project 3. HeadHunter dataset analysis](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_4) 
+* [project 3. HeadHunter dataset analysis](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/project_3) 
 
 * [project Labs. Training Labs for DTS](https://github.com/kdunaev-a10/SkillFactory-DTS/tree/main/module-python)
