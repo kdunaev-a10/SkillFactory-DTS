@@ -16,3 +16,4 @@ foreach($result in $results) {
 }
 
 #Get-ADComputer -Filter * -Properties * | FT name, ipv4Address
+ 
