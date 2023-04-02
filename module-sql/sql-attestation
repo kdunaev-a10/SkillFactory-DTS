@@ -1,0 +1,107 @@
+SELECT 
+    *
+FROM 
+    sqlprotest.movies m
+JOIN sqlprotest.movie_genres mg ON m.id=mg.movie_id and mg.genre_id!=5
+JOIN sqlprotest.genres g on g.id=mg.genre_id and g.name!='Криминал'
+
+
+
+
+
+SELECT 
+    g.name genre_name,
+    count(m.id) movies_count
+FROM 
+    sqlprotest.movies m
+JOIN sqlprotest.movie_genres mg ON m.id =mg.movie_id
+JOIN sqlprotest.genres g on g.id=mg.genre_id
+GROUP by genre_name
+HAVING count(m.id) >= 3
+ORDER by 2 desc
+
+
+select 
+    *
+from 
+    sqlprotest.genres G1
+    
+    
+
+SELECT
+    m.id,
+    m.name,
+    m.year,
+    m.rating
+FROM
+    sqlprotest.movies m
+JOIN sqlprotest.movie_genres mg ON m.id = mg.movie_id
+JOIN sqlprotest.genres g ON mg.genre_id = g.id
+
+except
+
+SELECT 
+    m.id,
+    m.name,
+    m.year,
+    m.rating
+FROM 
+    sqlprotest.movies m
+JOIN sqlprotest.movie_genres mg ON m.id=mg.movie_id
+JOIN sqlprotest.genres g on g.id=mg.genre_id and g.name='Криминал'
+ORDER by 4
+
+
+SELECT
+    *
+FROM
+sqlprotest.movies m
+where
+    m.rating is not NULL
+    
+--Напишите запрос, с помощью которого можно вычислить средний рейтинг фильмов в каждом жанре. 
+--Выведите два столбца: genre_name (название жанра) и average_rating (средний рейтинг). 
+--Результат отсортируйте по второму полю в порядке убывания.
+SELECT 
+    g.name genre_name,
+    avg(m.rating) average_rating
+FROM 
+    sqlprotest.movies m
+JOIN sqlprotest.movie_genres mg ON m.id =mg.movie_id
+JOIN sqlprotest.genres g on g.id=mg.genre_id
+GROUP by genre_name
+ORDER by 2 desc
+
+
+--Напишите запрос, чтобы вывести все названия фильмов и их рейтинги.
+--Если рейтинга нет, отобразите 0 для такого фильма. Отсортируйте по названию фильма в порядке возрастания.
+SELECT 
+    m.name,
+    coalesce(m.rating,0)
+FROM 
+    sqlprotest.movies m
+ORDER by 2 desc
+
+
+
+
+SELECT
+m.id,
+m.name,
+m.year,
+m.rating
+FROM
+sqlprotest.movies m
+JOIN sqlprotest.movie_genres mg ON m.id = mg.movie_id
+JOIN sqlprotest.genres g ON mg.genre_id = g.id
+except
+SELECT 
+m.id,
+m.name,
+m.year,
+m.rating
+FROM 
+    sqlprotest.movies m
+JOIN sqlprotest.movie_genres mg ON m.id=mg.movie_id
+JOIN sqlprotest.genres g on g.id=mg.genre_id and g.name='Криминал'
+order by 4 NULLS FIRST 

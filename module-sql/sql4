@@ -1,0 +1,779 @@
+-- SQL-4
+
+SELECT 
+    count(m.id)
+FROM
+    sql.matches as m
+join sql.teams as h on m.home_team_api_id = h.api_id
+join sql.teams as a on m.away_team_api_id = a.api_id
+WHERE (h.long_name = 'Real Madrid CF' and a.long_name = 'FC Barcelona') or (a.long_name = 'Real Madrid CF' and h.long_name = 'FC Barcelona')
+
+
+
+SELECT
+    t.long_name,
+    sum(m.home_team_goals) total_goals
+FROM
+    sql.teams t
+JOIN sql.matches m ON t.api_id = m.home_team_api_id
+GROUP by t.id
+having sum(m.home_team_goals) >= 0
+ORDER by 1,2
+
+SELECT
+    city_id
+FROM
+    sql.shipment as s
+where weight = 85581
+
+SELECT
+    city_name
+FROM
+    sql.city as c
+where city_id = 491
+
+
+SELECT
+*
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+limit 10
+
+
+SELECT
+    c.city_name,
+    weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+GROUP by s.weight, c.city_id
+ORDER by weight desc
+
+SELECT
+    c.city_name,
+    max(weight)
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+GROUP by s.weight, c.city_id
+ORDER by weight desc
+limit 10
+
+
+SELECT
+    c.city_name,
+    weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+GROUP by  c.city_id, s.weight
+having weight = (select max(weight) from sql.shipment)
+ORDER by weight desc
+
+
+select
+ count(distinct make)
+from sql.truck as t
+limit 10
+
+
+SELECT
+    d.first_name,
+    count(ship_id)
+FROM
+    sql.shipment as s
+JOIN sql.driver as d on d.driver_id = s.driver_id 
+GROUP by d.first_name, s.cust_id
+order by count(ship_id) desc
+limit 5
+
+
+SELECT
+max(ship_date),
+min(ship_date)
+FROM
+    sql.shipment as s
+limit 5
+
+SELECT
+   *
+FROM
+    sql.shipment as s
+where ship_date between '01-01-2017' and '12-31-2017'
+limit 5
+
+
+SELECT
+    c.city_name,
+    s.weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+order by s.weight DESC
+limit 10
+
+SELECT
+    max(s.weight)
+FROM
+    sql.shipment as s
+JOIN INTER sql.city as c on c.city_id = s.city_id
+
+
+
+
+--2) С помощью функции EXTRACT извлечь год из даты, тогда результат будет в числовом формате и его можно сравнить со значением 2017
+--extract(YEAR from ship_date) = 2017
+-- Привести дату к типу строка и воспользоваться поиском по шаблону
+--ship_date::text like '2017%'
+
+SELECT
+   ship_date::text
+FROM
+    sql.shipment as s
+where ship_date::text like '%2017%' 
+limit 5
+
+SELECT
+   *
+FROM
+    sql.shipment as s
+where ship_date::text like '%2017%' 
+limit 5
+
+SELECT
+   *
+FROM
+    sql.shipment as s
+where EXTRACT(YEAR from ship_date) = 2017
+limit 5
+
+SELECT
+    c.cust_name,
+    count(ship_id)
+FROM
+    sql.shipment as s
+JOIN sql.customer as c on c.cust_id = s.cust_id 
+where ship_date between '01-01-2017' and '12-31-2017'
+GROUP by s.cust_id, c.cust_name
+order by count(ship_id) desc
+limit 5
+
+
+
+SELECT 
+         book_name object_name, 'книга' object_description 
+FROM 
+         public.books
+
+UNION ALL
+
+SELECT 
+         movie_title, 'фильм' 
+FROM 
+         sql.kinopoisk
+limit 5
+
+
+select 'cat' pet, 1 countity
+
+
+
+(SELECT 
+         book_name object_name, 'книга' object_description 
+FROM 
+         public.books
+limit 5)
+
+UNION ALL
+
+(SELECT 
+         movie_title, 'фильм' 
+FROM 
+         sql.kinopoisk
+limit 5)
+
+
+
+
+SELECT
+         c.city_id object_name, 'id города' object_type
+FROM 
+         sql.city c
+
+UNION ALL
+
+SELECT
+         d.driver_id other_name, 'id водителя' other_type
+FROM 
+         sql.driver d
+
+UNION ALL
+
+SELECT
+         s.ship_id, 'id доставки'
+FROM 
+         sql.shipment s
+
+UNION ALL
+
+SELECT
+         c.cust_id, 'id клиента'
+FROM 
+         sql.customer c
+
+UNION ALL
+
+SELECT
+         t.truck_id, 'id грузовика'
+FROM 
+         sql.truck t
+ORDER BY 1
+
+
+SELECT
+     c.city_name "название", 
+    'city' "тип объекта"
+FROM 
+    sql.city c
+UNION 
+SELECT
+     c.state, 
+    'state' 
+FROM 
+    sql.city c
+UNION 
+SELECT
+     d.first_name,
+     'driver'
+FROM 
+    sql.driver d
+UNION 
+SELECT
+    t.make,
+    'truck'
+FROM
+    sql.truck t
+ORDER by 1,2
+
+
+SELECT
+     c.city_name "object_name"
+FROM 
+    sql.city c
+UNION ALL
+SELECT
+     c.state
+FROM 
+    sql.city c
+ORDER by "object_name"
+    
+
+
+SELECT 
+         c.city_id::text
+FROM
+         sql.city c
+
+UNION ALL
+
+SELECT 
+         cc.city_name
+FROM
+         sql.city cc
+
+SELECT 
+    d.phone "contact",
+    d.first_name "first_name",
+    'phone' "contact_type"
+FROM 
+    sql.driver d
+UNION 
+SELECT
+    d.zip_code::text,
+    d.first_name "first_name",
+    'zip'
+FROM 
+    sql.driver d
+ORDER by 1,2
+    
+SELECT 
+*
+FROM 
+    sql.driver d
+    
+    
+SELECT
+    c.city_name "city",
+    c.population "population"
+FROM
+    sql.city c
+UNION
+SELECT
+    'total',
+    sum(c.population)
+FROM
+    sql.city c
+ORDER by 2 DESC
+    
+--Напишите запрос, который выводит общее число доставок total_shipments, а также количество доставок в каждый день. 
+--Необходимые столбцы: date_period, cnt_shipment. 
+--Не забывайте о единой типизации. Упорядочите по убыванию столбца date_period.
+
+SELECT
+    'cnt_shipment',
+    sum(s.ship_id) 
+FROM 
+    sql.shipment s
+    
+
+
+SELECT
+    s.ship_date::text "date_period",
+    count(*) "cnt_shipment"
+FROM 
+    sql.shipment s
+GROUP by s.ship_date
+UNION
+SELECT
+    'total_shipments',
+    count(*) 
+FROM 
+    sql.shipment s
+
+ORDER by 1 DESC
+    
+
+SELECT 
+    d.first_name,
+    d.last_name,
+    'телефон заполнен' phone_info
+FROM
+    sql.driver as d 
+WHERE PHONE is NOT null
+UNION
+SELECT 
+    d.first_name,
+    d.last_name,
+    'телефон не заполнен' phone_info
+FROM
+    sql.driver as d 
+WHERE PHONE is null
+
+
+
+SELECT 
+    c.city_name,
+    c.state,
+    'доставка осуществлялась' shipping_status
+FROM
+    sql.city as c 
+LEFT JOIN sql.shipment as s on c.city_id = s.city_id 
+WHERE s.city_id is not NULL
+UNION
+SELECT 
+    c.city_name,
+    c.state,
+    'доставка не осуществлялась' shipping_status
+FROM
+    sql.city as c 
+LEFT JOIN sql.shipment as s on c.city_id = s.city_id 
+WHERE s.city_id is NULL
+ORDER by 1,2
+
+
+SELECT 
+*
+FROM
+    sql.city as c 
+LEFT JOIN sql.shipment as s on c.city_id = s.city_id 
+WHERE 
+    s.city_id is NULL
+    
+    
+SELECT 
+    c.city_name,
+    count(s.ship_id) as "shippings_fake"
+FROM
+    sql.city as c 
+JOIN sql.shipment as s on c.city_id = s.city_id 
+GROUP by c.city_id
+having count(s.ship_id) > 10
+UNION
+SELECT 
+    c.city_name,
+    count(s.ship_id)+5 as "shippings_fake"
+FROM
+    sql.city as c 
+JOIN sql.shipment as s on c.city_id = s.city_id 
+GROUP by c.city_id
+having count(s.ship_id) <= 10
+order by 2 desc, 1  
+
+
+SELECT 
+    1000000 as result
+UNION
+SELECT 
+    541
+UNION
+SELECT 
+    -500 
+UNION
+SELECT 
+    100 
+ORDER by result desc limit 1
+
+
+SELECT 
+    '1000000' as mycol
+UNION
+SELECT 
+    '541'
+UNION
+SELECT 
+    '-500'
+UNION
+SELECT 
+    '100'
+ORDER by mycol desc limit 1
+
+
+
+SELECT 
+    '+' as result
+UNION
+SELECT 
+    '-'
+UNION
+SELECT 
+    '='
+UNION
+SELECT 
+    '/' 
+ORDER by result desc limit 1
+
+
+
+--EXCEPT vs UNION
+
+SELECT
+         c.city_name
+FROM
+         sql.shipment s
+JOIN sql.city c ON s.city_id = c.city_id
+
+EXCEPT
+
+SELECT
+         cc.city_name
+FROM
+         sql.driver d 
+JOIN sql.city cc ON d.city_id=cc.city_id
+ORDER BY 1
+
+
+
+SELECT
+         d.zip_code as zip
+FROM
+         sql.driver d
+
+EXCEPT
+
+SELECT
+         c.zip
+FROM
+         sql.customer c
+
+ORDER BY 1
+
+
+--INTERCECT  vs union
+
+SELECT 
+         c.city_name object_name
+FROM 
+         sql.city c
+
+INTERSECT
+
+SELECT 
+         cc.state
+FROM 
+         sql.city cc
+ORDER BY 1
+
+
+
+SELECT 
+    c.city_id object_name
+FROM 
+    sql.customer c
+INTERSECT
+SELECT 
+    s.city_id
+FROM 
+    sql.shipment s
+INTERSECT
+SELECT 
+    d.city_id
+FROM 
+    sql.driver d
+
+
+SELECT 
+    c.zip object_name
+FROM 
+    sql.customer c
+INTERSECT
+SELECT 
+    d.zip_code
+FROM 
+    sql.driver d
+    
+
+--9.1    
+SELECT
+max(weight),
+min(weight)
+FROM
+    sql.shipment as s
+limit 5
+
+SELECT
+    c.city_name,
+    weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+where  
+weight = (select max(weight) from sql.shipment) or weight = (select min(weight) from sql.shipment)
+ORDER by 2 
+
+(SELECT
+    c.city_name,
+    weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+ORDER by 2 limit 1)
+union all
+(SELECT
+    c.city_name,
+    weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+ORDER by 2 desc limit 1)
+
+--9.2
+SELECT 
+         c.cust_id mutual_id
+FROM 
+         sql.customer c
+
+INTERSECT
+
+SELECT 
+         s.ship_id 
+FROM 
+         sql.shipment s
+ORDER BY 1
+
+--9.3
+SELECT
+     c.cust_name "object_name", 
+    'КЛИЕНТ' "object_description"
+FROM 
+    sql.customer c
+WHERE cust_type='manufacturer'
+UNION 
+SELECT
+    t.make,
+    'ГРУЗОВИК'
+FROM
+    sql.truck t
+ORDER by 1
+
+
+
+SELECT
+    s.city_id,
+    s.weight
+FROM
+    sql.shipment as s
+JOIN sql.city as c on c.city_id = s.city_id 
+
+ORDER by weight desc
+
+
+
+-- SQL5
+SELECT NOW(), CURRENT_TIMESTAMP
+
+show timezone
+
+SELECT * from pg_timezone_names
+
+select now() at time zone 'Europe/Moscow'
+
+
+select now() at time zone  'America/Los_Angeles'
+select now()::date
+
+select current_date, now()::date
+
+select '2018-12-31 21:00:00+00'::timestamp with time zone ts
+
+with x as 
+(select '2018-12-31 21:00:00+00'::timestamp with time zone ts
+ )
+select 
+  (x.ts at time zone 'Europe/Moscow')::date as dt_msk,
+  x.ts::date as dt_utc 
+from x
+
+SELECT EXTRACT(DAY FROM TIMESTAMP '2001-02-16 20:38:40');
+
+SELECT EXTRACT(EPOCH FROM TIMESTAMP '2001-02-16 20:38:40');
+
+SELECT EXTRACT(DAY FROM INTERVAL '40 days 1 minute');
+
+SELECT EXTRACT(MONTH FROM TIMESTAMP '2001-02-16 20:38:40');
+
+--Поле года. Учтите, что года 0 не было, и это следует иметь в виду, вычитая из годов нашей эры годы до нашей эры.
+SELECT EXTRACT(YEAR FROM TIMESTAMP '2001-02-16 20:38:40');
+
+
+--Год по недельному календарю ISO 8601, в который попадает дата (не применимо к интервалам).
+--Год по недельному календарю ISO начинается с понедельника недели, в которой оказывается 4 января, так что в 
+--начале января или в конце декабря год по ISO может отличаться от года по григорианскому календарю. Подробнее об этом рассказывается в описании поля week.
+
+SELECT EXTRACT(ISOYEAR FROM DATE '2006-01-01');
+
+SELECT EXTRACT(ISOYEAR FROM DATE '2006-01-02');
+
+--Номер недели в году по недельному календарю ISO 8601. По определению, недели ISO 8601 начинаются с понедельника, а первая неделя года включает 4 января этого года. 
+--Другими словами, первый четверг года всегда оказывается в первой неделе этого года.
+--В системе нумерации недель ISO первые числа января могут относиться к 52-й или 53-й неделе предыдущего года, а последние числа декабря — к первой неделе следующего года.
+
+SELECT EXTRACT(WEEK FROM TIMESTAMP '2001-02-16 20:38:40');
+
+
+--Века с номером 0 не было; считается, что 1 наступил после -1.
+SELECT EXTRACT(CENTURY FROM TIMESTAMP '2000-12-16 12:21:13');
+
+SELECT EXTRACT(CENTURY FROM TIMESTAMP '2001-02-16 20:38:40');
+
+
+SELECT 
+    EXTRACT(YEAR FROM s.ship_date) year_n,
+    EXTRACT(MONTH FROM s.ship_date) month_n,
+    count(s.ship_id) qty
+FROM 
+    sql.shipment s
+GROUP by 1,2
+ORDER by 1,2
+
+
+select 
+    to_char(now(),'"Hello! Today is" DAY yyyy-Mon-dd'), 
+    to_char(now(),'"Hello! Today is" DAY yyyy-MM-dd'),
+    to_char(now(),'"Hello! Today is" HH24:mi dd-MM-yyyy')
+
+
+SELECT to_char(now() at time zone 'Europe/Moscow', '"Точное время" HH24 "часов" MI "минут" SS "секунд"') as msg
+
+select date_trunc('minute',now())
+
+SELECT 
+    to_char(date_trunc('quarter', s.ship_date), 'yyyy-MM-DD') q,
+    sum(s.weight) total_weight 
+FROM 
+    sql.shipment s
+GROUP by 1
+ORDER by 1
+
+
+SELECT 
+    date_trunc('quarter', s.ship_date)::date q,
+    sum(s.weight) total_weight 
+FROM 
+    sql.shipment s
+GROUP by 1
+ORDER by 1
+
+
+select '2019-01-01'::date + 10
+
+select '2019-02-10'::date - '2017-03-01'::date
+
+
+SELECT 
+    c.city_name city_name,
+    max(s.ship_date) - min(s.ship_date) days_active 
+from 
+    sql.city as c
+    JOIN sql.shipment as s on c.city_id = s.city_id
+GROUP by 1
+ORDER by 1
+
+--String operation
+
+select 'select * from '||t.table_schema||'.'||t.table_name||';' query
+from information_schema.tables t
+where table_schema = 'shipping'
+
+
+select 
+    'Ваш заказ доставит водитель '  || d.first_name ||'-'||d.last_name || '. Его контактный номер: ' || coalesce(d.phone,'-') as msg
+from
+    sql.driver as d
+    
+    
+SELECT 
+        c.cust_id,
+        lower(cust_name) cust_name
+FROM shipping.customer c
+JOIN shipping.shipment s ON c.cust_id = s.cust_id
+GROUP BY 1,2
+HAVING COUNT(distinct s.ship_id)>10
+ORDER BY 1
+
+
+select replace('малако','а','о')
+
+
+select
+    replace(lower(c.city_name), ' ', '_') || '__' ||replace(lower(c.state), ' ', '_')
+FROM
+    sql.city c
+order by 1
+
+select
+    lower(replace(c.state || '__' || c.city_name, ' ', '_'))
+FROM
+    sql.city c
+order by 1
+
+
+
+SELECT
+    LEFT(state,4) code, 
+    COUNT(distinct state) qty
+FROM shipping.city
+GROUP BY 1
+HAVING COUNT(distinct state)>1
+
+
+
+SELECT format(
+  $$%s is located in %s. There's %s people living there. Its area is %s$$,
+  c.city_name,
+  c.state,
+  c.population,
+  c.area
+) str
+FROM shipping.city c
+ORDER BY city_name
