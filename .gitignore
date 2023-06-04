@@ -21,3 +21,7 @@ module-EDA/EDA-KAGGLE/data/sample_submission.csv
 module-EDA/EDA-KAGGLE/data/test_data.csv
 module-EDA/EDA-KAGGLE/data/train_data.csv
 project_3/data/hotels.csv
+module-ML/ML8/data/CC_GENERAL.csv
+module-ML/ML8/data/RED.csv
+module-ML/ML8/data/marketing_campaign.csv
+module-ML/ML8/pipeline_wine_test.pkl
